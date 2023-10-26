@@ -119,19 +119,22 @@ class SquartCounter {
     if (restart) {
       if (isUp()) {
         restart = false;
+        whenUp();
       }
     }
     else {
       if (isDown()) {
+        restart = true;
         whenDown();
       }
     }
   }
-
+  whenUp(){
+    context.read<WorkoutInfo>().addSquartCount();
+    print(context.read<WorkoutInfo>().squartCount);
+  }
   whenDown(){
 
-
-    restart = true;
   }
 
 

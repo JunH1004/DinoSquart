@@ -19,6 +19,12 @@ class WorkoutPageStateStore extends ChangeNotifier{
   }
 }
 class WorkoutInfo extends ChangeNotifier{
+    int squartCount = 0;
+
+    addSquartCount(){
+      squartCount += 1;
+      notifyListeners();
+    }
 }
 
 
