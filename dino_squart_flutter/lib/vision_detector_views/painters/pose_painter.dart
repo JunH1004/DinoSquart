@@ -59,6 +59,10 @@ class PosePainter extends CustomPainter {
         if (landmark.type == PoseLandmarkType.leftKnee || landmark.type == PoseLandmarkType.rightKnee) return;
         if (landmark.type == PoseLandmarkType.leftHeel || landmark.type == PoseLandmarkType.rightHeel) return;
         if (landmark.type == PoseLandmarkType.leftFootIndex || landmark.type == PoseLandmarkType.rightFootIndex) return;
+
+        if (landmark.type == PoseLandmarkType.leftWrist || landmark.type == PoseLandmarkType.rightWrist) return;
+        if (landmark.type == PoseLandmarkType.leftElbow || landmark.type == PoseLandmarkType.rightElbow) return;
+
         if (landmark.type.index > PoseLandmarkType.rightMouth.index) {
           canvas.drawCircle(
               Offset(
@@ -84,6 +88,7 @@ class PosePainter extends CustomPainter {
       }
 
       //Draw arms
+      /*
       paintLine(
           PoseLandmarkType.leftShoulder, PoseLandmarkType.leftElbow, leftPaint);
       paintLine(
@@ -92,6 +97,8 @@ class PosePainter extends CustomPainter {
           rightPaint);
       paintLine(
           PoseLandmarkType.rightElbow, PoseLandmarkType.rightWrist, rightPaint);
+
+       */
 
       //Draw Body
       paintLine(
@@ -104,13 +111,13 @@ class PosePainter extends CustomPainter {
           PoseLandmarkType.leftShoulder, PoseLandmarkType.rightShoulder, leftPaint);
 
       //Draw legs
-      /*paintLine(PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, leftPaint);
+      paintLine(PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, leftPaint);
       paintLine(
           PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle, leftPaint);
       paintLine(
           PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, rightPaint);
       paintLine(
-          PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle, rightPaint);*/
+          PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle, rightPaint);
     }
   }
 
