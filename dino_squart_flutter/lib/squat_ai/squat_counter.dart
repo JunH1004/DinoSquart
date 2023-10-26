@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../utility/util.dart';
 import '../workout_ui/workout_page.dart';
-class SquartCounter {
-  SquartCounter(this.context);
+class SquatCounter {
+  SquatCounter(this.context);
   BuildContext context;
   Pose pose = Pose(landmarks: {});
   var restart = true;
@@ -131,7 +131,7 @@ class SquartCounter {
   }
   whenUp(){
     context.read<WorkoutInfo>().addSquartCount();
-    print(context.read<WorkoutInfo>().squartCount);
+    print(context.read<WorkoutInfo>().squatCount);
   }
   whenDown(){
 
