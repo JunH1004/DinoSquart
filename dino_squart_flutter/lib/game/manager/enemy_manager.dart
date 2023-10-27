@@ -1,8 +1,11 @@
 import 'package:dino_squart_flutter/game/enemy.dart';
 import 'package:dino_squart_flutter/game/main_game.dart';
+import 'package:dino_squart_flutter/game/manager/game_manager.dart';
 import 'package:flame/components.dart';
 
 class EnemyManager extends Component with HasGameRef<MainGame>{
+  final double _initEnemySpeed = 3;
+  double _enemySpeed = 3;
   final List<Enemy> _enemies = [];
   double timer = 0;
 
@@ -17,8 +20,15 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
       timer = 0;
     }
 
-    // Add enemy objects to the game if needed
-    // For example:
-    // add(_enemies[0]);
+  }
+
+  void setEnemySpeed(double d){
+    _enemySpeed = d;
+  }
+  void setInitEnemySpeed(){
+    _enemySpeed = _initEnemySpeed;
+  }
+  double getEnemySpeed(){
+    return _enemySpeed;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dino_squart_flutter/game/manager/enemy_manager.dart';
+import 'package:dino_squart_flutter/game/manager/game_manager.dart';
 import 'package:dino_squart_flutter/game/player.dart';
 import 'package:flame/game.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ class MainGame extends FlameGame with HasCollisionDetection{
   MainGame(this.context);
   late Player player;
   EnemyManager enemyManager = EnemyManager();
+  GameManager gameManager = GameManager();
   BuildContext context;
 
 
@@ -17,6 +19,7 @@ class MainGame extends FlameGame with HasCollisionDetection{
     player = Player();
     add(player);
     add(enemyManager);
+    add(gameManager);
   }
 
   void update(double dt) {
