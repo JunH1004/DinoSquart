@@ -39,7 +39,7 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  late SquatCounter squartCounter = SquatCounter(context);
+  late SquatCounter squatCounter = SquatCounter(context);
 
   @override
   Widget build(BuildContext context) {

@@ -29,7 +29,7 @@ class BottomButton extends StatelessWidget {
                   color: mainColor,
                   child: TextButton(
                       onPressed: onPressed,
-                      child: Text(text,style: MyTextStyles.cardBodyTextStyle,),
+                      child: Text(text,),
                   )),
         )),
       ],
@@ -79,8 +79,8 @@ class SliverSimpleBoard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(left,style: MyTextStyles.reportTextStyle,),
-                Text(right,style: MyTextStyles.reportTextStyle,),
+                Text(left,),
+                Text(right,),
               ],
             ),
           ),
@@ -101,8 +101,8 @@ class SimpleBoard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(left,style: MyTextStyles.reportTextStyle,),
-          Text(right,style: MyTextStyles.reportTextStyle,),
+          Text(left,),
+          Text(right,),
         ],
       ),
     );

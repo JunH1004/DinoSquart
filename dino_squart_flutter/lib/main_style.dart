@@ -22,18 +22,12 @@ class MyColors{
   static final GREEN = Color(0xff3ae52e);
 }
 class MyTextStyles{
-  static final headTextStyle = TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.w600);
-  static final bodyTextStyle = TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.normal);
-  static final iconTextStyle = TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold);
-  static final subTextStyle = TextStyle(color: MyColors.lightGrey,fontSize: 11,fontWeight: FontWeight.normal);
-  static final cardBodyTextStyle = TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold);
-  static final workoutLargeStyle = TextStyle(color: Colors.white,fontSize: 55,fontWeight: FontWeight.bold);
-  static final workoutNormalStyle = TextStyle(color: Colors.white,fontSize: 32,fontWeight: FontWeight.bold);
-  static final workoutSmallStyle = TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold);
-  static final reportTextStyle = TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.normal);
-  static final bottomBtnTestStyle = TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.normal);
-  static final NoteNormalTextStyle = TextStyle(color: MyColors.RED,fontSize: 16,fontWeight: FontWeight.normal,fontStyle: FontStyle.italic,);
+  static const h1 = TextStyle(color: Colors.black,fontSize: 42,fontWeight: FontWeight.bold);
+  static const h2 = TextStyle(color: Colors.black,fontSize: 32,fontWeight: FontWeight.bold);
+  static const h3 = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.normal);
+  static const h1_sub = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold);
 }
+
 
 class CardStyles{
   static final redCardStyle = BoxDecoration(
