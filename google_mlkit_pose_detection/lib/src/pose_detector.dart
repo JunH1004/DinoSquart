@@ -53,7 +53,7 @@ class PoseDetectorOptions {
 
   /// Constructor to create an instance of [PoseDetectorOptions].
   PoseDetectorOptions(
-      {this.model = PoseDetectionModel.base,
+      {this.model = PoseDetectionModel.accurate,
       this.mode = PoseDetectionMode.stream});
 
   /// Returns a json representation of an instance of [PoseDetectorOptions].
