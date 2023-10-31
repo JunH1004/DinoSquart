@@ -7,7 +7,13 @@ List<CameraDescription> cameras = [];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<WorkoutPageStateStore>(create: (_) => WorkoutPageStateStore()),
+      ChangeNotifierProvider<WorkoutInfo>(create: (_) => WorkoutInfo()),
+    ],
+    child: const MyApp(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -22,13 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<WorkoutPageStateStore>(create: (_) => WorkoutPageStateStore()),
-          ChangeNotifierProvider<WorkoutInfo>(create: (_) => WorkoutInfo()),
-        ],
-        child: const HomePage(),
-      ),
+      home: HomePage()
     );
   }
 }
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DinoBoard(),
@@ -62,7 +62,6 @@ class DinoBoard extends StatelessWidget {
     return Container(
       color: Colors.yellow,
       width: double.infinity,
-      height: 250,
     );
   }
 }
@@ -73,8 +72,7 @@ class RecordBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(42, 0, 42, 0),
-      color: Colors.green,
-      height: 450,
+      height: 400,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -84,12 +82,25 @@ class RecordBoard extends StatelessWidget {
               children: [
                 Flexible(
                   child: Container(
-                    color: Colors.grey,
+
+                    child: Center(
+                      child: Text("운동 기록 차트"),
+                    ),
                   ),
                 ),
+                Divider(),
                 Flexible(
                   child: Container(
-                    color: Colors.greenAccent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+
+                      children: [
+                        reportBox('시간','12:30',''),
+                        reportBox('칼로리', '456','Kcal'),
+                        reportBox('피한 장애물', '98','개'),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -107,7 +118,7 @@ class GameBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(42, 0, 42, 0),
-      height: 450,
+      height: 400,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -166,7 +177,9 @@ class GameBoard extends StatelessWidget {
                 ),
                 Flexible(
                   child: GestureDetector(
-                    onTap: (){print("onTap()");},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutPage()));
+                      },
                     child: Container(
                         color: MyColors.yellow,
                         width: double.infinity,
@@ -184,3 +197,29 @@ class GameBoard extends StatelessWidget {
 }
 
 
+class reportBox extends StatelessWidget {
+  reportBox(this.title, this.body,this.sub);
+
+  String title;
+  String body;
+  String sub = '';
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title,style: MyTextStyles.h3,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(body,style: MyTextStyles.h1,),
+              Text(sub,style: MyTextStyles.h1_sub,),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
