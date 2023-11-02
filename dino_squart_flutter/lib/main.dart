@@ -1,9 +1,24 @@
 import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 List<CameraDescription> cameras = [];
+
+const double _kItemExtent = 32.0;
+int _selectedTargetTime = 0;
+const List<String> _targetTimes = <String>[
+  '무제한',
+  '0:30',
+  '1:00',
+  '1:30',
+  '2:00',
+  '2:30',
+  '3:00',
+];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
@@ -111,9 +126,14 @@ class RecordBoard extends StatelessWidget {
     );
   }
 }
-class GameBoard extends StatelessWidget {
+class GameBoard extends StatefulWidget {
   const GameBoard({super.key});
 
+  @override
+  State<GameBoard> createState() => _GameBoardState();
+}
+
+class _GameBoardState extends State<GameBoard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -168,7 +188,8 @@ class GameBoard extends StatelessWidget {
                         Column(
                           children: [
                             Text("목표 운동 시간 >",style: MyTextStyles.h3,),
-                            Text("10:00",style: MyTextStyles.h1,),
+                            //Text("10:00",style: MyTextStyles.h1,),
+                            CutertinoBtn(),
                           ],
                         ),
                       ],
@@ -191,6 +212,73 @@ class GameBoard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+void _showDialog(Widget child, BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => Container(
+      height: 216,
+      padding: const EdgeInsets.only(top: 6.0),
+      // The Bottom margin is provided to align the popup above the system navigation bar.
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      // Provide a background color for the popup.
+      color: CupertinoColors.systemBackground.resolveFrom(context),
+      // Use a SafeArea widget to avoid system overlaps.
+      child: SafeArea(
+        top: false,
+        child: child,
+      ),
+    ),
+  );
+}
+
+class CutertinoBtn extends StatefulWidget {
+  const CutertinoBtn({Key? key}) : super(key: key);
+
+  @override
+  State<CutertinoBtn> createState() => _CutertinoBtnState();
+}
+
+class _CutertinoBtnState extends State<CutertinoBtn> {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      // Display a CupertinoPicker with list of fruits.
+      onPressed: () => _showDialog(
+        CupertinoPicker(
+          magnification: 1.22,
+          squeeze: 1.2,
+          useMagnifier: false,
+          itemExtent: _kItemExtent,
+          // This sets the initial item.
+          scrollController: FixedExtentScrollController(
+            initialItem: _selectedTargetTime,
+          ),
+          // This is called when selected item is changed.
+          onSelectedItemChanged: (int selectedItem) {
+            setState(() {
+              _selectedTargetTime = selectedItem;
+            });
+          },
+          children:
+          List<Widget>.generate(_targetTimes.length, (int index) {
+            return Center(child: Text(_targetTimes[index]));
+          }),
+        ),
+          context
+      ),
+      // This displays the selected fruit name.
+      child: Text(
+        _targetTimes[_selectedTargetTime],
+        style: const TextStyle(
+          fontSize: 22.0,
+        ),
       ),
     );
   }
