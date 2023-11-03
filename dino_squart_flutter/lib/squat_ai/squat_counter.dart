@@ -165,7 +165,7 @@ class SquatCounter {
     }
     final lAngle = getAngle(pose, PoseLandmarkType.leftWrist, PoseLandmarkType.leftElbow, PoseLandmarkType.leftShoulder);
     final rAngle = getAngle(pose, PoseLandmarkType.rightWrist, PoseLandmarkType.rightElbow, PoseLandmarkType.rightShoulder);
-    if (lAngle < 80 && rAngle < 80) {
+    if (lAngle < 70 && rAngle < 70) {
       return true;}
     return false;
   }
