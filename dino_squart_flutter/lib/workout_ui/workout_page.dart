@@ -50,10 +50,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
       child: Material(
         child: Stack(
           children: [
-            //PoseDetectorView(squartCounter),
-            Container(
-              color: MyColors.yellow,
-            ),
+            PoseDetectorView(squatCounter),
+
             Positioned(
               top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
               child: SizedBox(
