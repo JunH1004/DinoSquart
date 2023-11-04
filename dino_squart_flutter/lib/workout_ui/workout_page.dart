@@ -1,5 +1,7 @@
 import 'package:dino_squart_flutter/game/main_game.dart';
+import 'package:dino_squart_flutter/workout_ui/YourWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +61,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 height: MediaQuery.of(context).size.height / 2,  // 화면 높이의 절반으로 설정
                 child: GameWidget(game: MainGame(context)),
               ),
+            ),
+            Positioned(
+              bottom: 16, // 화면 하단에서의 여백 조절
+              left: 16,   // 화면 왼쪽에서의 여백 조절
+              child: YourWidget(), // YourWidget 추가
             ),
             //game view on upper
           ],

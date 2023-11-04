@@ -116,6 +116,9 @@ class SquatCounter {
 
 
     //Workout State
+
+    
+
     if (restart) {
       if (isUp()) {
         restart = false;
@@ -138,6 +141,9 @@ class SquatCounter {
   }
 
 
+
+
+
   double getProgress() {
     if (pose.landmarks.isEmpty){
       return 0;
@@ -145,41 +151,70 @@ class SquatCounter {
     if (!isCorrectPose()){
       return 0;
     }
-    final lAngle = getAngle(pose, PoseLandmarkType.leftWrist, PoseLandmarkType.leftElbow, PoseLandmarkType.leftShoulder);
-    final rAngle = getAngle(pose, PoseLandmarkType.rightWrist, PoseLandmarkType.rightElbow, PoseLandmarkType.rightShoulder);
+    //각도 계산
+    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle);
+    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle);
+    //길이 계산
+    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip);
+    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip);
 
     // 평균 각도 계산
     final averageAngle = (lAngle + rAngle) / 2.0;
-
+    //평균 길이 계산
+    final averageLength = (lLength + rLength)/2.0;
     // 각도의 범위를 맞춰주기 위한 보간(interpolation) 계산
     final progress = (70 - averageAngle) / (70 - 150);
 
     // 계산된 보간값이 0.0에서 1.0 사이에 머무르도록 보장
     final clampedProgress = progress.clamp(0.0, 1.0);
 
+
     return clampedProgress;
+  }
+
+  double calculateDistance(Pose pose, PoseLandmarkType landmarkType1, PoseLandmarkType landmarkType2) {
+  PoseLandmark landmark1 = pose.landmarks[landmarkType1]!;
+  PoseLandmark landmark2 = pose.landmarks[landmarkType2]!;
+
+  double x1 = landmark1.x;
+  double y1 = landmark1.y;
+
+  double x2 = landmark2.x;
+  double y2 = landmark2.y;
+
+  double distance = ((x2 - x1).abs() + (y2 - y1).abs());
+
+  return distance;
+}
+
+  bool isDown() {
+    if (pose.landmarks.isEmpty){
+      return false;
+    }
+    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle);
+    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle);
+    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip);
+    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip);
+    print(lLength);
+    print(rLength);
+    if (lAngle > 120 && rAngle > 120) {
+      return true;}
+    return false;
   }
   bool isUp() {
     if (pose.landmarks.isEmpty){
       return false;
     }
-    final lAngle = getAngle(pose, PoseLandmarkType.leftWrist, PoseLandmarkType.leftElbow, PoseLandmarkType.leftShoulder);
-    final rAngle = getAngle(pose, PoseLandmarkType.rightWrist, PoseLandmarkType.rightElbow, PoseLandmarkType.rightShoulder);
-    if (lAngle < 70 && rAngle < 70) {
-      return true;}
-    return false;
-  }
-  bool isDown() {
-    if (pose.landmarks.isEmpty){
-      return false;
-    }
-    final lAngle = getAngle(pose, PoseLandmarkType.leftWrist, PoseLandmarkType.leftElbow, PoseLandmarkType.leftShoulder);
-    final rAngle = getAngle(pose, PoseLandmarkType.rightWrist, PoseLandmarkType.rightElbow, PoseLandmarkType.rightShoulder);
-    if (lAngle > 110 && rAngle > 110) {
+    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle);
+    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle);
+    if (lAngle < 80 && rAngle < 80 ) {
       return true;}
     return false;
   }
   bool isCorrectPose() {
     return true;
   }
+  
 }
+
+
