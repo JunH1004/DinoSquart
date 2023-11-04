@@ -18,7 +18,9 @@ const List<String> _targetTimes = <String>[
   '2:00',
   '2:30',
   '3:00',
-];
+]; 
+//타겟 타임 지정
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
@@ -30,6 +32,7 @@ void main() async{
     child: const MyApp(),
   ),);
 }
+//메인함수 runapp, provider 설정(WorkoutPageStateStore,WorkoutInfo)
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//MyApp
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -68,7 +72,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
+//HomePage
 class DinoBoard extends StatelessWidget {
   const DinoBoard({super.key});
 
@@ -80,6 +84,7 @@ class DinoBoard extends StatelessWidget {
     );
   }
 }
+//디노보드(캐릭터 선택창)
 class RecordBoard extends StatelessWidget {
   const RecordBoard({super.key});
 
@@ -126,12 +131,14 @@ class RecordBoard extends StatelessWidget {
     );
   }
 }
+//레코드 보드(최고점 소모 칼로리 통계 워크아웃 정보 시간설정,,,)
 class GameBoard extends StatefulWidget {
   const GameBoard({super.key});
 
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
+//게임보드 (GameBoardState 로 이동후 상태-stateful)
 
 class _GameBoardState extends State<GameBoard> {
   @override
@@ -216,6 +223,7 @@ class _GameBoardState extends State<GameBoard> {
     );
   }
 }
+//게임보드의 레이아웃및 푸쉬버튼으로 시작 명령 ->WorkoutPage 실행
 void _showDialog(Widget child, BuildContext context) {
   showCupertinoModalPopup<void>(
     context: context,
@@ -236,7 +244,7 @@ void _showDialog(Widget child, BuildContext context) {
     ),
   );
 }
-
+//
 class CutertinoBtn extends StatefulWidget {
   const CutertinoBtn({Key? key}) : super(key: key);
 

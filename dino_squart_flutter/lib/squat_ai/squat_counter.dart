@@ -135,9 +135,10 @@ class SquatCounter {
   whenUp(){
     context.read<WorkoutInfo>().addSquartCount();
     print(context.read<WorkoutInfo>().squatCount);
+    print(rlength);
+    
   }
   whenDown(){
-
   }
 
 
@@ -191,12 +192,12 @@ class SquatCounter {
     if (pose.landmarks.isEmpty){
       return false;
     }
-    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle);
-    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle);
-    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip);
-    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip);
-    print(lLength);
-    print(rLength);
+    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle); //왼쪽 각도 계산
+    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle); //오른쪽 각도 계산
+    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 길이 계산
+    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 길이 계산
+    print(lLength); //확인용 길이 출력 
+    print(rLength); //상동
     if (lAngle > 120 && rAngle > 120) {
       return true;}
     return false;

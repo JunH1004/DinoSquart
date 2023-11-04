@@ -22,6 +22,7 @@ class WorkoutPageStateStore extends ChangeNotifier{
     state = WorkoutPageState.Workout;
   }
 }
+//WorkoutPageStateStore클래스 생성 
 class WorkoutInfo extends ChangeNotifier{
     int squatCount = 0;
 
@@ -29,7 +30,9 @@ class WorkoutInfo extends ChangeNotifier{
       squatCount += 1;
       notifyListeners();
     }
+    //스쿼트 카운트 
 }
+//WorkoutInfo클래스 생성
 
 
 
@@ -39,7 +42,7 @@ class WorkoutPage extends StatefulWidget {
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
 }
-
+//WorkoutPage 클래스 생성 main.dart의 GameboardState클래스에서 넘어오게 되는 함수 존재
 class _WorkoutPageState extends State<WorkoutPage> {
   late SquatCounter squatCounter = SquatCounter(context);
 
