@@ -39,10 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxValue: 10,
                 divisions: 10,
                 height: 120,
+                itemBatch: 30,
                 onChanged: (value) {},
               ),
               Divider(),
               HorizontalPicker(
+                itemBatch: 30,
                 minValue: 0,
                 maxValue: 10,
                 divisions: 10,
@@ -56,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Divider(),
               HorizontalPicker(
+                itemBatch: 30,
                 minValue: -10,
                 maxValue: 55,
                 divisions: 600,

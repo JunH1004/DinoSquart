@@ -18,13 +18,14 @@ class HorizontalPicker extends StatefulWidget {
   final Color activeItemTextColor;
   final Color passiveItemsTextColor;
   final String suffix;
-
+  final double itemBatch;
   HorizontalPicker({
     required this.minValue,
     required this.maxValue,
     required this.divisions,
     required this.height,
     required this.onChanged,
+    required this.itemBatch,
     this.initialPosition = InitialPosition.center,
     this.backgroundColor = Colors.white,
     this.showCursor = true,
@@ -87,7 +88,7 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
             quarterTurns: 3,
             child: ListWheelScrollView(
                 controller: _scrollController,
-                itemExtent: 90,
+                itemExtent: widget.itemBatch,
                 onSelectedItemChanged: (item) {
                   curItem = item;
                   int decimalCount = 1;

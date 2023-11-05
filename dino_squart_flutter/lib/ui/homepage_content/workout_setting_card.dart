@@ -2,6 +2,7 @@ import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:horizontal_picker/horizontal_picker.dart';
 class WorkoutSettingCard extends StatelessWidget {
@@ -12,14 +13,14 @@ class WorkoutSettingCard extends StatelessWidget {
     return Flexible(
       flex: 5,
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.h),
         decoration: MyCardStyles.outLinedBoxStyle,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
+              margin: EdgeInsets.fromLTRB(16.w, 16.h, 0, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -30,7 +31,7 @@ class WorkoutSettingCard extends StatelessWidget {
 
             Expanded( //Difficulty region
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  padding: EdgeInsets.fromLTRB(16.w, 0, 16.h, 16.w),
                   child:Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,7 +51,7 @@ class WorkoutSettingCard extends StatelessWidget {
             Divider(color: MyColors.black,),
             Expanded( //Difficulty region
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    padding: EdgeInsets.fromLTRB(16.w, 0, 16.h, 16.w),
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,10 +94,11 @@ class _TimePickerState extends State<TimePicker> {
       backgroundColor: MyColors.white,
       activeItemTextColor: MyColors.black,
       passiveItemsTextColor: MyColors.grey,
+      itemBatch: 90.w,
       onChanged: (value) {
         context.read<HompageDataStore>().setWorkoutTime(value.toInt());
       },
-      height: 200,
+      height: 200.h,
     );
   }
 }
@@ -141,9 +143,9 @@ class _DifficultyBtnState extends State<DifficultyBtn> {
           context.read<HompageDataStore>().setWorkoutDifficulty(widget.index);
         },
         child: Container(
-          margin: isSelected? EdgeInsets.fromLTRB(8, 0, 8, 0) :EdgeInsets.fromLTRB(8, 32, 8, 0),
+          margin: isSelected? EdgeInsets.fromLTRB(4.w, 0, 4.w, 0) :EdgeInsets.fromLTRB(4.w, 32.h, 4.w, 0),
           decoration: isSelected? MyCardStyles.outLinedColorBox(widget.bgColor):MyCardStyles.outLinedColorBox(widget.bgColor.withOpacity(0.5)),
-          child: Center(child: Text(widget.text,style: TextStyle(color: MyColors.black,fontSize: 16,fontWeight: FontWeight.bold),),),
+          child: Center(child: Text(widget.text,style: TextStyle(color: MyColors.black,fontSize: 16.sp,fontWeight: FontWeight.bold),),),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 var mainTheme = ThemeData(
   primaryColor: MyColors.deepGreen,
@@ -7,7 +8,7 @@ var mainTheme = ThemeData(
     bodyLarge: TextStyle(color: Colors.white),
   ),
     iconTheme: IconThemeData(
-      color: Colors.white,
+      color: Colors.black,
     )
 );
 class MyColors{
@@ -24,11 +25,11 @@ class MyColors{
   static final hard = Colors.redAccent;
 }
 class MyTextStyles{
-  static const h1 = TextStyle(color: Colors.black,fontSize: 42,fontWeight: FontWeight.bold);
-  static const h2 = TextStyle(color: Colors.black,fontSize: 32,fontWeight: FontWeight.bold);
-  static const h3 = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.normal);
-  static const h4 = TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.normal);
-  static const h1_sub = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold);
+  static TextStyle h1 = TextStyle(color: Colors.black,fontSize: 42.sp,fontWeight: FontWeight.bold);
+  static TextStyle h2 = TextStyle(color: Colors.black,fontSize: 32.sp,fontWeight: FontWeight.bold);
+  static TextStyle h3 = TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.normal);
+  static TextStyle h4 = TextStyle(color: Colors.black,fontSize: 16.sp,fontWeight: FontWeight.normal);
+  static TextStyle h1_sub = TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.bold);
 }
 
 
@@ -43,21 +44,21 @@ class MyCardStyles{
   static final outLinedBoxStyle = BoxDecoration(
       color: MyColors.white,borderRadius:BorderRadius.circular(16),
       border: Border.all(
-          width: 4,
+          width: 4.w,
           color: MyColors.black
       )
   );
   static final outLinedGreyBoxStyle = BoxDecoration(
     color: MyColors.lightGrey,borderRadius:BorderRadius.only(topLeft: Radius.circular(64),topRight: Radius.circular(64)),
     border: Border.all(
-      width: 4,
+      width: 4.w,
       color: MyColors.black
     )
   );
   static final outLinedBtnStyle = BoxDecoration(
       color: mainTheme.primaryColor,borderRadius:BorderRadius.circular(64),
       border: Border.all(
-          width: 4,
+          width: 4.w,
           color: MyColors.black
       )
   );
@@ -65,7 +66,7 @@ class MyCardStyles{
     return BoxDecoration(
         color: bgColor,borderRadius:BorderRadius.circular(16),
         border: Border.all(
-            width: 4,
+            width: 4.w,
             color: MyColors.black
         )
     );

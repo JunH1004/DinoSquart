@@ -7,6 +7,7 @@ import 'package:dino_squart_flutter/utility/util.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,7 @@ class HomePage extends StatelessWidget {
         body: Column(
           children: [
             Text("Dino Squat!",
-          style: TextStyle(fontSize: 42,fontWeight: FontWeight.bold)),
+          style: TextStyle(fontSize: 42.sp,fontWeight: FontWeight.bold)),
             Flexible(
               flex: 2,
                 child: DinoTopBoard()
@@ -79,7 +80,7 @@ class MainContentBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      padding: EdgeInsets.all(64),
+      padding: EdgeInsets.all(32.w),
       decoration: MyCardStyles.outLinedGreyBoxStyle,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,18 +119,18 @@ class MainContentBox extends StatelessWidget {
             ),
           ),
           //btn
-          Container(height: 50,),
+          Container(height: 50.h,),
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutPage()));
             },
             child: Container(
                 decoration: MyCardStyles.outLinedBtnStyle,
-                height: 120,
+                height: 120.h,
                 width: double.infinity,
                 child: Center(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("지금 바로 시작!",style: MyTextStyles.h1,),
                         RichText(text: TextSpan(

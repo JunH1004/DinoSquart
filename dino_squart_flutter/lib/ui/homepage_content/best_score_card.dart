@@ -1,5 +1,6 @@
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BestScoreCard extends StatelessWidget {
   const BestScoreCard({super.key});
@@ -9,14 +10,14 @@ class BestScoreCard extends StatelessWidget {
     return Flexible(
       flex: 2,
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.h),
         decoration: MyCardStyles.outLinedBoxStyle,
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
+              margin: EdgeInsets.fromLTRB(16.w, 16.h, 0, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -26,7 +27,7 @@ class BestScoreCard extends StatelessWidget {
                     children: [
                       Text('1342',style: MyTextStyles.h2),
                       Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('m',style: MyTextStyles.h3))
                     ],
                   )
@@ -36,10 +37,10 @@ class BestScoreCard extends StatelessWidget {
 
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 16, 16),
+                  padding:  EdgeInsets.fromLTRB(0, 0, 16.w, 16.h),
                   child: Align(
                       alignment: Alignment.bottomRight,
-                      child: Image(image: AssetImage('assets/images/king.png'),width: 100,height: 100,)),
+                      child: Image(image: AssetImage('assets/images/king.png'),width: 100.w,height: 100.h,)),
                 )),
           ],
         ),

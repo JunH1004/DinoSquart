@@ -4,6 +4,7 @@ import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,12 +29,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: HomePage()
+    return ScreenUtilInit(
+      designSize: const Size(768, 1366),
+      minTextAdapt: true,
+      splitScreenMode: true,
+
+      // Use builder only if you need to use library outside ScreenUtilInit context
+      builder: (_ , child) {
+        return MaterialApp(
+
+          debugShowCheckedModeBanner: false,
+          title: 'First Method',
+          // You can use the library anywhere in the app even in theme
+          theme: ThemeData(
+
+          ),
+          home: child,
+        );
+      },
+      child: const HomePage(),
     );
   }
 }

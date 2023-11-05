@@ -1,6 +1,7 @@
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalorieCard extends StatelessWidget {
   final List<double> reps = [1,2,3,7,5,6,3];
@@ -9,14 +10,14 @@ class CalorieCard extends StatelessWidget {
     return Flexible(
       flex: 3,
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.h),
         decoration: MyCardStyles.outLinedBoxStyle,
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
+              margin: EdgeInsets.fromLTRB(16.w, 16.h, 0, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -26,7 +27,7 @@ class CalorieCard extends StatelessWidget {
                     children: [
                       Text('1200',style: MyTextStyles.h2),
                       Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('cal',style: MyTextStyles.h3))
                     ],
                   )
@@ -36,7 +37,7 @@ class CalorieCard extends StatelessWidget {
 
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.h),
                   child:Container(
                     decoration: MyCardStyles.outLinedBoxStyle,
                     child: LineChart(
@@ -72,7 +73,7 @@ LineChartData _createRepsData(List<double> reps) {
         isCurved: true,
         preventCurveOverShooting: false,
         color: MyColors.black,
-        barWidth: 4,
+        barWidth: 4.w,
         isStrokeCapRound: true,
         dotData: const FlDotData(
           show: false,
