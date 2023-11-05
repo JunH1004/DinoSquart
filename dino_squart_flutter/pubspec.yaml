@@ -16,7 +16,7 @@ dependencies:
   path_provider: ^2.0.15
   percent_indicator: ^4.0.1
   progress_indicator: ^0.2.2
-  fl_chart: ^0.63.0
+  fl_chart: ^0.64.0
   shared_preferences: 2.0.6
   fluttertoast: ^8.0.8
   google_mlkit_commons:

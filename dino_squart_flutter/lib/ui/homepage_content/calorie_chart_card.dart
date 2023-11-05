@@ -1,12 +1,16 @@
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class CalorieCard extends StatelessWidget {
-  final List<double> reps = [1,2,3,7,5,6,3];
+  List<double> data = [1,2,3,7,5,6,3];
+
   @override
   Widget build(BuildContext context) {
+    data = context.watch<HompageDataStore>().weeklyBrunCalories;
     return Flexible(
       flex: 3,
       child: Container(
@@ -21,7 +25,7 @@ class CalorieCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Daily Calorie',style: MyTextStyles.h3,),
+                  Text('주간 칼로리',style: MyTextStyles.h3,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -36,14 +40,8 @@ class CalorieCard extends StatelessWidget {
             ),
 
             Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.h),
-                  child:Container(
-                    decoration: MyCardStyles.outLinedBoxStyle,
-                    child: LineChart(
-                      _createRepsData(reps),
-                    ),
-                  )
+                child: LineChart(
+                  _createRepsData(data),
                 )),
           ],
         ),
@@ -52,10 +50,8 @@ class CalorieCard extends StatelessWidget {
   }
 }
 
-
-
-LineChartData _createRepsData(List<double> reps) {
-  final double maxRep = reps.reduce((currentMax, element) =>
+LineChartData _createRepsData(List<double> data) {
+  final double maxValue = data.reduce((currentMax, element) =>
   currentMax > element
       ? currentMax
       : element);
@@ -63,12 +59,12 @@ LineChartData _createRepsData(List<double> reps) {
     minX: 0,
     maxX: 6,
     minY: 0,
-    maxY: maxRep + 1,
+    maxY: maxValue + 1,
     lineBarsData: [
       LineChartBarData(
         spots: [
-          for (int i = 0; i < 7; i++) i < reps.length ? FlSpot(
-              i.toDouble(), reps[i]) : FlSpot(i.toDouble(), 0),
+          for (int i = 0; i < 7; i++) i < data.length ? FlSpot(
+              i.toDouble(), data[i]) : FlSpot(i.toDouble(), 0),
         ],
         isCurved: true,
         preventCurveOverShooting: false,
@@ -88,18 +84,18 @@ LineChartData _createRepsData(List<double> reps) {
       show: true,
       drawVerticalLine: false,
       drawHorizontalLine: false,
-      verticalInterval: 1,
-      horizontalInterval: 1,
+      verticalInterval: maxValue/3,
+      horizontalInterval: maxValue/5,
       getDrawingHorizontalLine: (value) {
         return FlLine(
-          color: MyColors.black,
-          strokeWidth: 2,
+          color: MyColors.lightGrey,
+          strokeWidth: 2.h,
         );
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: MyColors.black,
-          strokeWidth: 2,
+          color: MyColors.lightGrey,
+          strokeWidth: 2.w,
         );
       },
     ),

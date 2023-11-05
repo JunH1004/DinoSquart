@@ -24,7 +24,7 @@ class WorkoutSettingCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Workout',style: MyTextStyles.h2,),
+                  Text('운동 설정',style: MyTextStyles.h2,),
                 ],
               ),
             ),

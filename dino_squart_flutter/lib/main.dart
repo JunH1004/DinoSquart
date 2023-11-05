@@ -19,7 +19,7 @@ void main() async{
       ChangeNotifierProvider<WorkoutInfo>(create: (_) => WorkoutInfo()),
       ChangeNotifierProvider<HompageDataStore>(create: (_) => HompageDataStore()),
     ],
-    child: const MyApp(),
+    child: MyApp(),
   ),);
 }
 

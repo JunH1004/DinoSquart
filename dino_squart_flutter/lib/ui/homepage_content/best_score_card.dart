@@ -1,5 +1,6 @@
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BestScoreCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class BestScoreCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Best Score',style: MyTextStyles.h3,),
+                  Text('최고 기록',style: MyTextStyles.h3,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -36,12 +37,11 @@ class BestScoreCard extends StatelessWidget {
             ),
 
             Expanded(
-                child: Padding(
-                  padding:  EdgeInsets.fromLTRB(0, 0, 16.w, 16.h),
-                  child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Image(image: AssetImage('assets/images/king.png'),width: 100.w,height: 100.h,)),
-                )),
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+ //                       color: Colors.blue,
+                        child: Image(alignment : Alignment.bottomRight,image: AssetImage('assets/images/sunin.png'),width: 200.w,height: 200.h,)))),
           ],
         ),
       ),
