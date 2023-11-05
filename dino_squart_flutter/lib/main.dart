@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ void main() async{
     providers: [
       ChangeNotifierProvider<WorkoutPageStateStore>(create: (_) => WorkoutPageStateStore()),
       ChangeNotifierProvider<WorkoutInfo>(create: (_) => WorkoutInfo()),
+      ChangeNotifierProvider<HompageDataStore>(create: (_) => HompageDataStore()),
     ],
     child: const MyApp(),
   ),);
@@ -48,26 +50,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          DinoBoard(),
-          Divider(),
-          RecordBoard(),
-          Divider(),
-          GameBoard(),
-        ],
-      )
-    );
-  }
-}
 
 class DinoBoard extends StatelessWidget {
   const DinoBoard({super.key});
@@ -202,7 +185,7 @@ class _GameBoardState extends State<GameBoard> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutPage()));
                       },
                     child: Container(
-                        color: MyColors.yellow,
+                        color: MyColors.deepGreen,
                         width: double.infinity,
                         height: double.infinity,
                         child: const Center(child: Text("지금 바로 시작!",style: MyTextStyles.h1,))),

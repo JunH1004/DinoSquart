@@ -52,7 +52,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
           children: [
             //PoseDetectorView(squartCounter),
             Container(
-              color: MyColors.yellow,
+              color: MyColors.deepGreen,
             ),
             Positioned(
               top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.

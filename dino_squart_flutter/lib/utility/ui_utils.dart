@@ -75,7 +75,7 @@ class SliverSimpleBoard extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(MyPadding.side, 10, MyPadding.side, 0),
           child: Container(
             padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: CardStyles.normalCardStyle,
+            decoration: MyCardStyles.normalCardStyle,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -97,7 +97,7 @@ class SimpleBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-      decoration: CardStyles.normalCardStyle,
+      decoration: MyCardStyles.normalCardStyle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
