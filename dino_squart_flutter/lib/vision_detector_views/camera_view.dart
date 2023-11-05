@@ -119,7 +119,7 @@ class _CameraViewState extends State<CameraView> {
         height: 50.0,
         width: 50.0,
         child: FloatingActionButton(
-          backgroundColor: MyColors.red,
+          backgroundColor: MyColors.deepGreen,
           onPressed: _switchLiveCamera,
           child: Icon(
             Platform.isIOS

@@ -14,7 +14,7 @@ class PosePainter extends CustomPainter {
   final pointColor = Colors.white70;
   Color get lineColor {
     // progress 값에 따라 색상 계산
-    final interpolatedColor = Color.lerp(Colors.white, MyColors.red, progress);
+    final interpolatedColor = Color.lerp(Colors.white, MyColors.RED, progress);
     // lerp 함수는 progress 값에 따라 두 색상을 보간(interpolate)하여 새로운 색상을 생성
     // 이 예시에서는 0.0에 가까울수록 red, 1.0에 가까울수록 blue에 가까운 색상이 생성됨
     return interpolatedColor ?? Colors.white; // null 체크 후 기본값 설정
