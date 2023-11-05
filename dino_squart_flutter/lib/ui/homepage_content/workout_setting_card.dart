@@ -3,7 +3,7 @@ import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:horizontal_picker/horizontal_picker.dart';
 class WorkoutSettingCard extends StatelessWidget {
   const WorkoutSettingCard({super.key});
 
@@ -48,17 +48,52 @@ class WorkoutSettingCard extends StatelessWidget {
                 
                 )),
             Divider(color: MyColors.black,),
-            Expanded(//time region
+            Expanded( //Difficulty region
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 24, 24),
-                  child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Image(image: AssetImage('assets/images/king.png'),width: 100,height: 100,)),
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child:Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Flexible(
+                            flex: 2,
+                            child: Text('시간',style: MyTextStyles.h3,)),
+                        Flexible(
+                          flex: 3,
+                          child: TimePicker(),
+                        ),
+                      ],
+                    )
+
+
                 )),
 
           ],
         ),
       ),
+    );
+  }
+}
+class TimePicker extends StatefulWidget {
+  const TimePicker({super.key});
+
+  @override
+  State<TimePicker> createState() => _TimePickerState();
+}
+
+class _TimePickerState extends State<TimePicker> {
+  @override
+  Widget build(BuildContext context) {
+    return HorizontalPicker(
+      minValue: 0,
+      maxValue: 50,
+      divisions: 50,
+      suffix: "분",
+      showCursor: false,
+      backgroundColor: MyColors.white,
+      activeItemTextColor: MyColors.black,
+      passiveItemsTextColor: MyColors.grey,
+      onChanged: (value) {}, height: 100,
     );
   }
 }
