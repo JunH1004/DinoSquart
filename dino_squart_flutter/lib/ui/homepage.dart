@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/ui/homepage_content/calorie_chart_card.dart';
 import 'package:dino_squart_flutter/ui/homepage_content/dino_top_board.dart';
 import 'package:dino_squart_flutter/ui/homepage_content/workout_setting_card.dart';
 import 'package:dino_squart_flutter/utility/util.dart';
@@ -106,7 +107,7 @@ class MainContentBox extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      BestScoreCard(),
+                      CalorieCard(),
                       BestScoreCard(),
                     ],
                     //Calorie card
