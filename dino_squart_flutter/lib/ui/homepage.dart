@@ -23,8 +23,8 @@ class HompageDataStore extends ChangeNotifier{
 
   void init(){
     //실제 구현에서는 최근에 설정했던 난이도와 시간을 불러온다.
-    setWorkoutTime(0);
-    setWorkoutDifficulty(0);
+    _workoutTime = 0;
+    _workoutDifficulty = 0;
   }
   void initTestValue(){
     //테스트용 값
@@ -32,8 +32,7 @@ class HompageDataStore extends ChangeNotifier{
     _totalWorkoutTime = 218;
     _totalBurnCalorie = 1234;
     _totalAvoidedObstacle = 64;
-    weeklyBrunCalories = [1,2,3,5,2,4,8];
-    notifyListeners();
+    weeklyBrunCalories = [1,2,3,5,2,5,7];
   }
 
   int get getTotalWorkoutTime => _totalWorkoutTime;
