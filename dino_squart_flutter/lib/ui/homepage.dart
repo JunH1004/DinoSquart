@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage_content/dino_top_board.dart';
+import 'package:dino_squart_flutter/ui/homepage_content/workout_setting_card.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,14 @@ import 'package:provider/provider.dart';
 import 'homepage_content/best_score_card.dart';
 
 class HompageDataStore extends ChangeNotifier{
-
+  int _workoutDifficulty = 0; //0,1,2
+  void setWorkoutDifficulty(int n){
+    _workoutDifficulty = n;
+    notifyListeners();
+  }
+  int getWorkoutDifficulty(){
+    return _workoutDifficulty;
+  }
 }
 
 class HomePage extends StatelessWidget {
@@ -61,7 +69,7 @@ class MainContentBox extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       BestScoreCard(),
-                      BestScoreCard(),
+                      WorkoutSettingCard(),
                     ],
                   ),
                 ),

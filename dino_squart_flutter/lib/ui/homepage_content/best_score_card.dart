@@ -6,12 +6,14 @@ class BestScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
+      flex: 2,
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: MyCardStyles.outLinedBoxStyle,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          //mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               margin: EdgeInsets.fromLTRB(16, 16, 0, 0),
@@ -33,7 +35,12 @@ class BestScoreCard extends StatelessWidget {
             ),
 
             Expanded(
-                child: Image(image: AssetImage('assets/images/greenDino.png'),width: 100,height: 100,)),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 16, 16),
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Image(image: AssetImage('assets/images/king.png'),width: 100,height: 100,)),
+                )),
           ],
         ),
       ),

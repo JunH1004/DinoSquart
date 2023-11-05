@@ -19,6 +19,9 @@ class MyColors{
   static final RED = Colors.red;
   static final GREEN = Color(0xff3ae52e);
   static final deepGreen = Color(0xff34A76D);
+  static final easy = Colors.greenAccent;
+  static final normal = Colors.lightBlueAccent;
+  static final hard = Colors.redAccent;
 }
 class MyTextStyles{
   static const h1 = TextStyle(color: Colors.black,fontSize: 42,fontWeight: FontWeight.bold);
@@ -57,6 +60,15 @@ class MyCardStyles{
           color: MyColors.black
       )
   );
+  static BoxDecoration outLinedColorBox(Color bgColor){
+    return BoxDecoration(
+        color: bgColor,borderRadius:BorderRadius.circular(16),
+        border: Border.all(
+            width: 4,
+            color: MyColors.black
+        )
+    );
+ }
 }
 
 class MyPadding{
