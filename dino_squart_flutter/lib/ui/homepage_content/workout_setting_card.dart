@@ -93,7 +93,10 @@ class _TimePickerState extends State<TimePicker> {
       backgroundColor: MyColors.white,
       activeItemTextColor: MyColors.black,
       passiveItemsTextColor: MyColors.grey,
-      onChanged: (value) {}, height: 100,
+      onChanged: (value) {
+        context.read<HompageDataStore>().setWorkoutTime(value.toInt());
+      },
+      height: 200,
     );
   }
 }

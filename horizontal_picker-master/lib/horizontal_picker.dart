@@ -51,7 +51,7 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
       valueMap.add({
         "value": widget.minValue +
             ((widget.maxValue - widget.minValue) / widget.divisions) * i,
-        "fontSize": 14.0,
+        "fontSize": 8.0,
         "color": widget.passiveItemsTextColor,
       });
     }
@@ -77,7 +77,7 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(4),
       height: widget.height,
       alignment: Alignment.center,
       color: widget.backgroundColor,
@@ -87,7 +87,7 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
             quarterTurns: 3,
             child: ListWheelScrollView(
                 controller: _scrollController,
-                itemExtent: 60,
+                itemExtent: 90,
                 onSelectedItemChanged: (item) {
                   curItem = item;
                   int decimalCount = 1;
@@ -102,8 +102,8 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
                       valueMap[item]["hasBorders"] = true;
                     } else {
                       valueMap[i]["color"] = widget.passiveItemsTextColor;
-                      valueMap[i]["fontSize"] = 12.0;
-                      valueMap[i]["hasBorders"] = false;
+                      valueMap[i]["fontSize"] = 8.0;
+                      valueMap[i]["hasBorders"] = true;
                     }
                   }
                   setState(() {});

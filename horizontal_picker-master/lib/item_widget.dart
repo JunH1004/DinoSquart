@@ -39,7 +39,7 @@ class _ItemWidgetState extends State<ItemWidget> {
     return FittedBox(
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: 10,
+          horizontal: 1,
           vertical: 1,
         ),
         decoration: BoxDecoration(
@@ -49,51 +49,48 @@ class _ItemWidgetState extends State<ItemWidget> {
         child: RotatedBox(
           quarterTurns: 1,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                "|",
-                style: TextStyle(fontSize: 8, color: widget.curItem["color"]),
-              ),
-              const SizedBox(height: 5),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: leftText == '0'? '무제한' : intToTime(int.parse(leftText)),
-                      style: TextStyle(
+              const SizedBox(height: 10),
+              Align(
+                alignment: Alignment.topCenter,
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: leftText == '0'? '무제한' : intToTime(int.parse(leftText)),
+                        style: TextStyle(
+                            fontSize: widget.curItem["fontSize"],
+                            color: widget.curItem["color"],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: rightText == "0" ? "" : ".",
+                        style: TextStyle(
+                          fontSize: widget.curItem["fontSize"] - 3,
+                          color: widget.curItem["color"],
+                        ),
+                      ),
+                      TextSpan(
+                        text: rightText == "0" ? "" : rightText,
+                        style: TextStyle(
+                          fontSize: widget.curItem["fontSize"] - 3,
+                          color: widget.curItem["color"],
+                        ),
+                      ),
+                      TextSpan(
+                        text: widget.suffix.isEmpty ? "" : widget.suffix,
+                        style: TextStyle(
                           fontSize: widget.curItem["fontSize"],
                           color: widget.curItem["color"],
-                          fontWeight: rightText == "0"
-                              ? FontWeight.w800
-                              : FontWeight.w400),
-                    ),
-                    TextSpan(
-                      text: rightText == "0" ? "" : ".",
-                      style: TextStyle(
-                        fontSize: widget.curItem["fontSize"] - 3,
-                        color: widget.curItem["color"],
-                      ),
-                    ),
-                    TextSpan(
-                      text: rightText == "0" ? "" : rightText,
-                      style: TextStyle(
-                        fontSize: widget.curItem["fontSize"] - 3,
-                        color: widget.curItem["color"],
-                      ),
-                    ),
-                    TextSpan(
-                      text: widget.suffix.isEmpty ? "" : widget.suffix,
-                      style: TextStyle(
-                        fontSize: widget.curItem["fontSize"],
-                        color: widget.curItem["color"],
-                      ),
-                    )
-                  ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 15),
               Text(
                 "|",
                 style: TextStyle(fontSize: 8, color: widget.curItem["color"]),

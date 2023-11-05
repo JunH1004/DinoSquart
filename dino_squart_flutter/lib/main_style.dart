@@ -27,6 +27,7 @@ class MyTextStyles{
   static const h1 = TextStyle(color: Colors.black,fontSize: 42,fontWeight: FontWeight.bold);
   static const h2 = TextStyle(color: Colors.black,fontSize: 32,fontWeight: FontWeight.bold);
   static const h3 = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.normal);
+  static const h4 = TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.normal);
   static const h1_sub = TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold);
 }
 

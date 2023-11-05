@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage_content/dino_top_board.dart';
 import 'package:dino_squart_flutter/ui/homepage_content/workout_setting_card.dart';
+import 'package:dino_squart_flutter/utility/util.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,33 @@ import 'homepage_content/best_score_card.dart';
 
 class HompageDataStore extends ChangeNotifier{
   int _workoutDifficulty = 0; //0,1,2
+  int _workoutTime = 0;
   void setWorkoutDifficulty(int n){
     _workoutDifficulty = n;
     notifyListeners();
   }
   int getWorkoutDifficulty(){
     return _workoutDifficulty;
+  }
+  int getCalPerHour(){
+    return (_workoutDifficulty + 1) * 100;
+  }
+  int getCalByWorkoutTime(){
+    return (getCalPerHour() * (getWorkoutTime() / 3600)).toInt();
+  }
+
+  void setWorkoutTime(int n){
+    _workoutTime = n;
+    notifyListeners();
+  }
+  int getWorkoutTime(){
+    return _workoutTime;
+  }
+  String getWorkoutTimeText(){
+    if (_workoutTime == 0){
+      return '무제한';
+    }
+    return convertToTimeString(_workoutTime);
   }
 }
 
@@ -54,6 +76,7 @@ class MainContentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: EdgeInsets.all(64),
       decoration: MyCardStyles.outLinedGreyBoxStyle,
@@ -101,10 +124,32 @@ class MainContentBox extends StatelessWidget {
             },
             child: Container(
                 decoration: MyCardStyles.outLinedBtnStyle,
-                height: 100,
+                height: 120,
                 width: double.infinity,
-                child: const Center(child: Text("지금 바로 시작!",style: MyTextStyles.h1,))),
-          ),
+                child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("지금 바로 시작!",style: MyTextStyles.h1,),
+                        RichText(text: TextSpan(
+                          text: context.watch<HompageDataStore>().getWorkoutTime() == 0?
+                          '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalPerHour()}'
+                              :
+                          '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalByWorkoutTime()}'
+                            ,
+                          style: MyTextStyles.h3,
+                          children: <TextSpan>[
+                            context.watch<HompageDataStore>().getWorkoutTime() == 0?
+                            TextSpan(text: 'kcal/h',style: MyTextStyles.h4)
+                                :
+                            TextSpan(text: 'kcal',style: MyTextStyles.h4)
+                          ]
+                        ))
+                      ]
+                    ),
+                ),
+            )
+          )
         ],
       ),
     );
