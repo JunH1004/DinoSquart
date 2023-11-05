@@ -56,24 +56,23 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
       });
     }
     setScrollController();
+
+    // 초기 선택 항목을 활성 상태로 설정
+    int initialItem = 0; // 첫 번째 아이템을 선택
+    valueMap[initialItem]["color"] = widget.activeItemTextColor;
+    valueMap[initialItem]["fontSize"] = 32.0;
+    valueMap[initialItem]["hasBorders"] = true;
+
+    // 초기 선택 항목을 컨트롤러를 통해 UI로 업데이트
+    _scrollController.jumpToItem(initialItem);
   }
+
 
   void setScrollController() {
-    int initialItem;
-    switch (widget.initialPosition) {
-      case InitialPosition.start:
-        initialItem = 0;
-        break;
-      case InitialPosition.center:
-        initialItem = (valueMap.length ~/ 2);
-        break;
-      case InitialPosition.end:
-        initialItem = valueMap.length - 1;
-        break;
-    }
-
+    int initialItem = 0; // 항상 첫 번째 아이템을 선택하도록 설정
     _scrollController = FixedExtentScrollController(initialItem: initialItem);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +98,11 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
                   for (var i = 0; i < valueMap.length; i++) {
                     if (i == item) {
                       valueMap[item]["color"] = widget.activeItemTextColor;
-                      valueMap[item]["fontSize"] = 15.0;
+                      valueMap[item]["fontSize"] = 32.0;
                       valueMap[item]["hasBorders"] = true;
                     } else {
                       valueMap[i]["color"] = widget.passiveItemsTextColor;
-                      valueMap[i]["fontSize"] = 14.0;
+                      valueMap[i]["fontSize"] = 12.0;
                       valueMap[i]["hasBorders"] = false;
                     }
                   }
@@ -138,3 +137,4 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
     );
   }
 }
+

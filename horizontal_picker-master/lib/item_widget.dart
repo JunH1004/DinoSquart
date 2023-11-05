@@ -61,7 +61,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: leftText,
+                      text: leftText == '0'? '무제한' : intToTime(int.parse(leftText)),
                       style: TextStyle(
                           fontSize: widget.curItem["fontSize"],
                           color: widget.curItem["color"],
@@ -104,4 +104,15 @@ class _ItemWidgetState extends State<ItemWidget> {
       ),
     );
   }
+}
+String intToTime(int intValue) {
+  // 분 단위로 변환
+  int minutes = intValue ~/ 60;
+  int seconds = intValue % 60;
+
+  // 시간과 분을 문자열로 변환
+  String hourString = minutes.toString().padLeft(2, '0'); // 두 자릿수로 만듭니다.
+  String minuteString = seconds.toString().padLeft(2, '0'); // 두 자릿수로 만듭니다.
+
+  return '$hourString:$minuteString';
 }

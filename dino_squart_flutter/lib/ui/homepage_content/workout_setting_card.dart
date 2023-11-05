@@ -86,9 +86,9 @@ class _TimePickerState extends State<TimePicker> {
   Widget build(BuildContext context) {
     return HorizontalPicker(
       minValue: 0,
-      maxValue: 50,
-      divisions: 50,
-      suffix: "분",
+      maxValue: 600,
+      divisions: 20,
+      suffix: "",
       showCursor: false,
       backgroundColor: MyColors.white,
       activeItemTextColor: MyColors.black,
