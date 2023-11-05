@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CalorieCard extends StatelessWidget {
-  List<double> data = [1,2,3,7,5,6,3];
+  List<double> data = [0,0,0,0,0,0,0];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CalorieCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('1200',style: MyTextStyles.h2),
+                      Text(context.read<HompageDataStore>().getSumWeeklyCalorie().toString(),style: MyTextStyles.h2),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('cal',style: MyTextStyles.h3))

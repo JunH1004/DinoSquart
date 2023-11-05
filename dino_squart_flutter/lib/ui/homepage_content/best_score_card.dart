@@ -1,7 +1,9 @@
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class BestScoreCard extends StatelessWidget {
   const BestScoreCard({super.key});
@@ -26,7 +28,7 @@ class BestScoreCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('1342',style: MyTextStyles.h2),
+                      Text(context.read<HompageDataStore>().getBestScore().toString(),style: MyTextStyles.h2),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('m',style: MyTextStyles.h3))

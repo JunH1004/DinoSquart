@@ -19,7 +19,8 @@ class HompageDataStore extends ChangeNotifier{
   int _totalWorkoutTime = 0; //총 운동 시간
   int _totalBurnCalorie = 0; //총 소모한 칼로리
   int _totalAvoidedObstacle = 0; //총 피한 장애물
-  List<double> weeklyBrunCalories = [0,0,0,0,0,0,0]; //최근 7일 소모 칼로리
+  List<double> weeklyBrunCalories = [0,0,0,0,0,0,0];
+  int _bestScore = 0;//최근 7일 소모 칼로리
 
   void init(){
     //실제 구현에서는 최근에 설정했던 난이도와 시간을 불러온다.
@@ -29,12 +30,34 @@ class HompageDataStore extends ChangeNotifier{
   void initTestValue(){
     //테스트용 값
     // TODO 실제 데이터 저장 및 불러오기
+    _bestScore = 1004;
     _totalWorkoutTime = 218;
     _totalBurnCalorie = 1234;
     _totalAvoidedObstacle = 64;
     weeklyBrunCalories = [1,2,3,5,2,5,7];
   }
 
+  int getSumWeeklyCalorie(){
+    int sum = 0;
+    for(int i = 0; i < 7; i++){
+      sum += weeklyBrunCalories[i].toInt();
+    }
+    return sum;
+  }
+  int getBestScore(){
+    return _bestScore;
+  }
+  bool isNewBestScore(int n){
+    if (_bestScore < n) return true;
+
+    return false;
+  }
+  void updateBestScore(int n){
+    if (isNewBestScore(n)){
+      _bestScore = n;
+      notifyListeners();
+    }
+  }
   int get getTotalWorkoutTime => _totalWorkoutTime;
   set setTotalWorkoutTime(int value) => (){
     _totalWorkoutTime = value;
