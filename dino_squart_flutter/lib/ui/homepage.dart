@@ -125,23 +125,25 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        //appBar: AppBar(backgroundColor : MyColors.white,title: Text("Dino Squat!",style: TextStyle(fontSize: 42,fontWeight: FontWeight.bold),),),
-        body: Column(
-          children: [
-            Text("Dino Squat!",
-          style: TextStyle(fontSize: 42.sp,fontWeight: FontWeight.bold)),
-            Flexible(
-              flex: 2,
-                child: DinoTopBoard()
-            ),
-            Flexible(
-                flex: 8,
-                child: MainContentBox()
-            )
-          ],
-        ),
+    return Scaffold(
+      //appBar: AppBar(backgroundColor : MyColors.white,title: Text("Dino Squat!",style: TextStyle(fontSize: 42,fontWeight: FontWeight.bold),),),
+      body: Column(
+
+        children: [
+          Container(
+            height: 100.h,
+          ),
+          Text("Dino Squat!",
+        style: TextStyle(fontSize: 42.sp,fontWeight: FontWeight.bold)),
+          Flexible(
+            flex: 2,
+              child: DinoTopBoard()
+          ),
+          Flexible(
+              flex: 8,
+              child: MainContentBox()
+          )
+        ],
       ),
     );
   }
