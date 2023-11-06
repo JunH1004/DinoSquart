@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:dino_squart_flutter/game/main_game.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pause_tab.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pose_ready_tab.dart';
@@ -25,6 +28,13 @@ class WorkoutPageStateStore extends ChangeNotifier{
   }
 }
 class WorkoutInfo extends ChangeNotifier{
+    double squatLevel = 1.0; //0.0 ~ 1.0 1이 일어난거
+    double minSquatLevel = 1.0;
+    final double goodTopLine = 0.75;
+    final double goodBottomLine = 0.10;
+    final double perfectTopLine = 0.60;
+    final double perfectBottomLine = 0.25;
+
     int squatCount = 0;
     int _totalTimer = 0;
     int _totalAvoidCnt = 0;
@@ -34,6 +44,36 @@ class WorkoutInfo extends ChangeNotifier{
     addSquartCount(){
       squatCount += 1;
       notifyListeners();
+    }
+    void startSquatCycle() {
+      const cycleDuration = Duration(seconds: 2);
+      const interval = Duration(milliseconds: 10); // Adjust the interval as needed
+
+      Timer.periodic(interval, (Timer timer) {
+        print(squatLevel);
+        if (squatLevel > 0.4) {
+          squatLevel -= interval.inMilliseconds / cycleDuration.inMilliseconds;
+          minSquatLevel = min(minSquatLevel,squatLevel);
+          notifyListeners();
+        } else {
+          // Squat level reached 0, start increasing it
+          timer.cancel();
+          // Cancel the decreasing timer
+          Timer.periodic(interval, (Timer increaseTimer) {
+            print(squatLevel);
+            if (squatLevel < 1.0) {
+              squatLevel += interval.inMilliseconds / cycleDuration.inMilliseconds;
+              minSquatLevel = min(minSquatLevel,squatLevel);
+              notifyListeners();
+            } else {
+              minSquatLevel = 1.0;
+              // Squat level reached 1.0, restart the cycle
+              increaseTimer.cancel(); // Cancel the increasing timer
+              startSquatCycle();
+            }
+          });
+        }
+      });
     }
 }
 
@@ -53,6 +93,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
     super.initState();
     context.read<WorkoutPageStateStore>().init();
     context.read<WorkoutInfo>().squatCount = 0;
+    context.read<WorkoutInfo>()..startSquatCycle();
   }
   @override
   Widget build(BuildContext context) {
@@ -65,7 +106,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
           children: [
             //PoseDetectorView(squartCounter),
             Container(
-              color: MyColors.deepGreen,
+              color: MyColors.BLUE,
             ),
             Positioned(
               top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
@@ -81,7 +122,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               PauseTab(),
               ReportTab(),
 
-            ][3]
+            ][1]
 
             //game view on upper
           ],
