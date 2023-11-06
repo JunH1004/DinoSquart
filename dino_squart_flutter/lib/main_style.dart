@@ -77,6 +77,15 @@ class MyCardStyles{
         )
     );
  }
+  static BoxDecoration outLinedColorBoxNoRadius(Color bgColor){
+    return BoxDecoration(
+        color: bgColor,
+        border: Border.all(
+            width: 4.w,
+            color: MyColors.black
+        )
+    );
+  }
 }
 
 class MyPadding{

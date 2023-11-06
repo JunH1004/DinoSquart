@@ -1,4 +1,8 @@
 import 'package:dino_squart_flutter/game/main_game.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pause_tab.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pose_ready_tab.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_tab.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/squat_tab.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +12,16 @@ import '../squat_ai/squat_counter.dart';
 import '../utility/ui_utils.dart';
 import '../vision_detector_views/detector_views.dart';
 import 'package:flutter/src/material/progress_indicator.dart';
-enum WorkoutPageState {Ready,Stand,Workout,Pause,Report}
+enum WorkoutPageState {Ready,Workout,Pause,Report}
 
 class WorkoutPageStateStore extends ChangeNotifier{
-  WorkoutPageState state = WorkoutPageState.Workout;
+  WorkoutPageState state = WorkoutPageState.Ready;
   setPageState(WorkoutPageState s) {
     state = s;
     notifyListeners();
   }
   init(){
-    state = WorkoutPageState.Workout;
+    state = WorkoutPageState.Ready;
   }
 }
 class WorkoutInfo extends ChangeNotifier{
@@ -40,7 +44,12 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   late SquatCounter squatCounter = SquatCounter(context);
-
+  @override
+  void initState(){
+    super.initState();
+    context.read<WorkoutPageStateStore>().init();
+    context.read<WorkoutInfo>().squatCount = 0;
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -62,6 +71,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 child: GameWidget(game: MainGame(context)),
               ),
             ),
+            [ // 탭 리스트
+              ReadyTab(),
+              SquatTab(),
+              PauseTab(),
+              ReportTab(),
+
+            ][0]
+
             //game view on upper
           ],
         ),
