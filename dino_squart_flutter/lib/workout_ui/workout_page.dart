@@ -26,7 +26,11 @@ class WorkoutPageStateStore extends ChangeNotifier{
 }
 class WorkoutInfo extends ChangeNotifier{
     int squatCount = 0;
+    int _totalTimer = 0;
+    int _totalAvoidCnt = 0;
+    List<int> calories = [];
 
+    //TODO GETTER SETTER 만들기
     addSquartCount(){
       squatCount += 1;
       notifyListeners();
