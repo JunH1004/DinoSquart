@@ -35,7 +35,15 @@ class MyTextStyles{
   static TextStyle h2_w = TextStyle(color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.bold);
   static TextStyle h3_w = TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.normal);
   static TextStyle h4_w = TextStyle(color: Colors.white,fontSize: 16.sp,fontWeight: FontWeight.normal);
+  static TextStyle g1_outline_color(Color fontColor){
+    return TextStyle(
+      fontSize: 64.sp,
+      fontWeight: FontWeight.bold,
+      color: fontColor
 
+    );
+
+  }
 }
 
 

@@ -34,6 +34,7 @@ dependencies:
   horizontal_picker:
     path: ../horizontal_picker-master/
   flutter_screenutil: ^5.9.0
+  stroke_text: ^0.0.2
 
 
 

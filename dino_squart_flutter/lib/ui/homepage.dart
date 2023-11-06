@@ -195,7 +195,7 @@ class MainContentBox extends StatelessWidget {
             ),
           ),
           //btn
-          Container(height: 50.h,),
+          Container(height: 32.h,),
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutPage()));

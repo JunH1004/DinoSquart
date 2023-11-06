@@ -77,7 +77,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               PauseTab(),
               ReportTab(),
 
-            ][0]
+            ][3]
 
             //game view on upper
           ],
