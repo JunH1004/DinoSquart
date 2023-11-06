@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ReportCalorieChartCard extends StatelessWidget {
-  List<double> data = [1,4,5,2,3,5,6,13,4,5,2,1,3,4,5,2,3,1,2,3,];
+  List<double> data = [1,4,5,2,3,5,6,13,4,3,4,1,3,4,5,2,3,1,2,3,];
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,8 @@ class ReportCalorieChartCard extends StatelessWidget {
             ),
 
             Expanded(
-              child: Container(
-                  child: LineChart(
-                    _createRepsData(data),
-                  )
+              child: LineChart(
+                _createRepsData(data),
               ),
             ),
           ],
@@ -53,7 +51,7 @@ LineChartData _createRepsData(List<double> data) {
     minX: 0,
     maxX: data.length.toDouble()-1,
     minY: 0,
-    maxY: maxValue + 1,
+    maxY: (maxValue + 1).toDouble(),
     lineBarsData: [
       LineChartBarData(
         spots: [
