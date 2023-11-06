@@ -31,6 +31,11 @@ class MyTextStyles{
   static TextStyle h3_B = TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.bold);
   static TextStyle h4 = TextStyle(color: Colors.black,fontSize: 16.sp,fontWeight: FontWeight.normal);
   static TextStyle h1_sub = TextStyle(color: Colors.black,fontSize: 24.sp,fontWeight: FontWeight.bold);
+  static TextStyle h1_w = TextStyle(color: Colors.white,fontSize: 42.sp,fontWeight: FontWeight.bold);
+  static TextStyle h2_w = TextStyle(color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.bold);
+  static TextStyle h3_w = TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.normal);
+  static TextStyle h4_w = TextStyle(color: Colors.white,fontSize: 16.sp,fontWeight: FontWeight.normal);
+
 }
 
 

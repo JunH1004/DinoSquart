@@ -206,17 +206,17 @@ class MainContentBox extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("지금 바로 시작!",style: MyTextStyles.h1,),
+                        Text("게임 시작!",style: MyTextStyles.h1_w,),
                         RichText(text: TextSpan(
                           text: context.watch<HompageDataStore>().getWorkoutTime() == 0?
                           '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalPerHour()}'
                               :
                           '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalByWorkoutTime()}'
                             ,
-                          style: MyTextStyles.h3,
+                          style: MyTextStyles.h3_w,
                           children: <TextSpan>[
                             context.watch<HompageDataStore>().getWorkoutTime() == 0?
-                            TextSpan(text: 'kcal/h',style: MyTextStyles.h4)
+                            TextSpan(text: 'kcal/h',style: MyTextStyles.h4_w)
                                 :
                             TextSpan(text: 'kcal',style: MyTextStyles.h4)
                           ]
