@@ -14,6 +14,7 @@ class ReportCalorieChartCard extends StatelessWidget {
     return Flexible(
       flex: 2,
       child: Container(
+        clipBehavior: Clip.hardEdge,
         margin: EdgeInsets.all(8.h),
         decoration: MyCardStyles.outLinedBoxStyle,
         child: Column(
