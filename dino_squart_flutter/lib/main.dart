@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,13 @@ List<CameraDescription> cameras = [];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
+
+  await Flame.images.loadAll([
+    "Tree.png",
+    "Tree_up.png",
+    "Tree_down.png"
+  ]);
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<WorkoutPageStateStore>(create: (_) => WorkoutPageStateStore()),

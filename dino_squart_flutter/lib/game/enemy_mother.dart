@@ -3,51 +3,28 @@ import 'package:dino_squart_flutter/game/manager/enemy_manager.dart';
 import 'package:dino_squart_flutter/game/player.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 import 'manager/game_manager.dart';
 
-
-class Enemy extends PositionComponent
-    with HasGameRef<MainGame>, CollisionCallbacks, DragCallbacks {
+class Enemy extends RectangleComponent
+    with HasGameRef<MainGame>, CollisionCallbacks {
   static const enemySize = 48.0;
-  late final EnemyComponent _enemyComponent;
   double moveSpeed = 3;
-
   Enemy({
     super.position,
   }) : super(
     size: Vector2.all(enemySize),
     priority: 2,
     anchor: Anchor.bottomCenter,
-  ){
-    var TreeImage = Flame.images.fromCache("Tree.png");
-    var TreeImage1 = Flame.images.fromCache("Tree_up.png");
-    var TreeImage2 = Flame.images.fromCache("Tree_down.png");
-
-    List<Sprite> TreeAnim = [
-      Sprite(TreeImage1, srcPosition: Vector2(0, 0), srcSize: Vector2(18*4, 24*4)),
-      Sprite(TreeImage2,
-          srcPosition: Vector2(0, 0), srcSize: Vector2(18*4, 24*4)),
-    ];
-
-    var animatedTreeImage = SpriteAnimation.spriteList(TreeAnim, stepTime: 0.3);
-    _enemyComponent = EnemyComponent(animatedTreeImage);
-    add(_enemyComponent);
-
-
-  }
+  );
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    //paint.color = Colors.yellow;
-    position = Vector2(gameRef.size.x * 2, gameRef.size.y-40);
+    paint.color = Colors.yellow;
+    position = Vector2(gameRef.size.x * 2, gameRef.size.y - 20);
     add(RectangleHitbox());
-
   }
 
   @override
@@ -68,14 +45,5 @@ class Enemy extends PositionComponent
     if (position.x < gameRef.size.x * -0.5){
       removeFromParent();
     }
-  }
-}
-
-class EnemyComponent extends SpriteAnimationComponent {
-  EnemyComponent(SpriteAnimation playerAnimationMap)
-      : super(size: Vector2(18*4, 24*4), animation: playerAnimationMap);
-  @override
-  void update(double dt){
-    super.update(dt);
   }
 }
