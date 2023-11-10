@@ -1,5 +1,5 @@
 import 'package:dino_squart_flutter/game/main_game.dart';
-import 'package:dino_squart_flutter/workout_ui/YourWidget.dart';
+import 'package:dino_squart_flutter/workout_ui/status_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flame/game.dart';
@@ -12,21 +12,30 @@ import '../vision_detector_views/detector_views.dart';
 import 'package:flutter/src/material/progress_indicator.dart';
 enum WorkoutPageState {Ready,Stand,Workout,Pause,Report}
 
-class WorkoutPageStateStore extends ChangeNotifier{
+class WorkoutPageStateStore extends ChangeNotifier
+{
   WorkoutPageState state = WorkoutPageState.Workout;
-  setPageState(WorkoutPageState s) {
+  setPageState(WorkoutPageState s)
+  {
     state = s;
     notifyListeners();
   }
-  init(){
+  init()
+  {
     state = WorkoutPageState.Workout;
   }
 }
-//WorkoutPageStateStore클래스 생성 
-class WorkoutInfo extends ChangeNotifier{
-    int squatCount = 0;
 
-    addSquartCount(){
+//WorkoutPageStateStore클래스 생성 
+class WorkoutInfo extends ChangeNotifier
+{
+    int squatCount = 0;
+    double avg_Length=0;
+    double avg_Angle=0;
+    double body_size=0;
+
+    addSquartCount()
+    {
       squatCount += 1;
       notifyListeners();
     }
@@ -36,20 +45,24 @@ class WorkoutInfo extends ChangeNotifier{
 
 
 
-class WorkoutPage extends StatefulWidget {
+class WorkoutPage extends StatefulWidget
+{
   WorkoutPage({Key?key}) : super(key: key);
 
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
 }
 //WorkoutPage 클래스 생성 main.dart의 GameboardState클래스에서 넘어오게 되는 함수 존재
-class _WorkoutPageState extends State<WorkoutPage> {
+class _WorkoutPageState extends State<WorkoutPage> 
+{
   late SquatCounter squatCounter = SquatCounter(context);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () 
+      {
         return Future(() => false);
       },
       child: Material(
@@ -68,7 +81,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
             Positioned(
               bottom: 16, // 화면 하단에서의 여백 조절
               left: 16,   // 화면 왼쪽에서의 여백 조절
-              child: YourWidget(), // YourWidget 추가
+              child: YourWidget(), // YourWidget 추가(스쿼트 개수 출력)
             ),
             //game view on upper
           ],
