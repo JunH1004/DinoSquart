@@ -24,7 +24,7 @@ class SquatCounter extends ChangeNotifier
   late Timer _notStandTimer;
   bool isNotStandTimerRunning = false;
 
-
+  
 
   void startTotalTimer()
   {
@@ -128,10 +128,18 @@ class SquatCounter extends ChangeNotifier
     //   return;
     // }
 
-    //Workout State
-
+    //Send date to WorkoutInfo 
+    context.read<WorkoutInfo>().setATH(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip));
+    context.read<WorkoutInfo>().setATK(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee));
+    context.read<WorkoutInfo>().setPropotion((calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip))/(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee)));
+    
+    
+    
+    
+    
     if (restart) 
     {
+    
       if (isUp()) 
       {
         restart = false;
@@ -151,18 +159,10 @@ class SquatCounter extends ChangeNotifier
   whenUp()
   {
     context.read<WorkoutInfo>().addSquartCount();
-    print(context.read<WorkoutInfo>().squatCount);
-    context.read<WorkoutInfo>().avg_Length=getAvgLength();
-    print(context.read<WorkoutInfo>().avg_Length);
-    context.read<WorkoutInfo>().avg_Angle=getAvgAngle();
-    print(context.read<WorkoutInfo>().avg_Angle);
-    context.read<WorkoutInfo>().body_size=getBodySize();
-    print(context.read<WorkoutInfo>().body_size);
+    print(context.read<WorkoutInfo>().squatCount);  
   }
   whenDown()
   {
-    context.read<WorkoutInfo>().avg_Length=getAvgLength();
-    print(context.read<WorkoutInfo>().avg_Length);
   }
 
 
@@ -259,23 +259,17 @@ class SquatCounter extends ChangeNotifier
     }
     final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle); //왼쪽 각도 계산
     final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle); //오른쪽 각도 계산
-    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 길이 계산
-    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 길이 계산
-    final body_size = calculateArea(pose, PoseLandmarkType.leftHip, PoseLandmarkType.rightHip, PoseLandmarkType.rightShoulder,PoseLandmarkType.leftShoulder);//몸통 크기 계산
-    final avg_length = rLength+lLength; // 좌우 평균 길이 
-
-    print(lLength); //확인용 길이 출력 
-    print(rLength); //상동
-    print(avg_length); //평균길이 출력 
-    print(body_size);// 몸뚱아리 크기 출력
-
+    final lATHLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 ATH길이 계산
+    final rATHLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 ATH길이 계산
+    final lATKLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee); //왼쪽 ATH길이 계산
+    final rATKLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightKnee); //오른쪽 ATH길이 계산
+    final avg_ATHLength = (rATHLength+lATHLength)/2; // 좌우 ATH평균 길이 
+    final avg_ATKLength = (rATKLength+lATKLength)/2;
+    final min_maxLength = ((avg_ATHLength/avg_ATKLength)-1).clamp(0.0, 1.0);
     
-    if (lAngle > 120 && rAngle > 120) 
+    if ( min_maxLength<0.3) 
     {
-      if(avg_length<100)
-      {
-        return true;
-      }
+      return true;
     }
     return false;
   }
@@ -287,22 +281,18 @@ class SquatCounter extends ChangeNotifier
     }
     final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle); //왼쪽 각도 계산
     final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle); //오른쪽 각도 계산
-    final lLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 길이 계산
-    final rLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 길이 계산
-    final body_size = calculateArea(pose, PoseLandmarkType.leftHip, PoseLandmarkType.rightHip, PoseLandmarkType.rightShoulder,PoseLandmarkType.leftShoulder);//몸통 크기 계산
-    final avg_length = rLength+lLength; // 좌우 평균 길이 
+    final lATHLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 ATH길이 계산
+    final rATHLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 ATH길이 계산
+    final lATKLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee); //왼쪽 ATH길이 계산
+    final rATKLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightKnee); //오른쪽 ATH길이 계산
+    final avg_ATHLength = (rATHLength+lATHLength)/2; // 좌우 ATH평균 길이 
+    final avg_ATKLength = (rATKLength+lATKLength)/2;
+    final min_maxLength = ((avg_ATHLength/avg_ATKLength)-1).clamp(0.0, 1.0);
+    print(min_maxLength);
 
-    print(lLength); //확인용 길이 출력 
-    print(rLength); //상동
-    print(avg_length); //평균길이 출력 
-    print(body_size);// 몸뚱아리 크기 출력
-
-    if (lAngle > 120 && rAngle > 120) 
+    if ( min_maxLength>0.7) 
     {
-      if(avg_length>100)
-      {
-        return true;
-      }
+      return true;
     }
     return false;
   }

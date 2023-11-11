@@ -33,7 +33,21 @@ class WorkoutInfo extends ChangeNotifier
     double avg_Length=0;
     double avg_Angle=0;
     double body_size=0;
-
+    double atkLength=0;
+    double athLength=0;
+    double lengthPropotion=0;
+    void setATH(double d){
+      athLength=d;
+      notifyListeners();
+    }
+    void setATK(double d){
+      atkLength = d;
+      notifyListeners();
+    }
+    void setPropotion(double d){
+      lengthPropotion=d;
+      notifyListeners();
+    }
     addSquartCount()
     {
       squatCount += 1;
@@ -81,7 +95,17 @@ class _WorkoutPageState extends State<WorkoutPage>
             Positioned(
               bottom: 16, // 화면 하단에서의 여백 조절
               left: 16,   // 화면 왼쪽에서의 여백 조절
-              child: YourWidget(), // YourWidget 추가(스쿼트 개수 출력)
+              child: Consumer<WorkoutInfo>(builder:( context,workoutInfo, child)
+              {
+                return YourWidget
+                (
+                  squatCount: workoutInfo.squatCount,
+                  avgLength: workoutInfo.avg_Length,
+                  avgAngle: workoutInfo.avg_Angle,
+                  bodySize: workoutInfo.body_size,
+                );
+              }, // YourWidget 추가(스쿼트 개수 출력)
+              ),
             ),
             //game view on upper
           ],
