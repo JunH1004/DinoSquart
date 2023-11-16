@@ -7,7 +7,8 @@ import 'package:flame/events.dart';
 class Player extends RectangleComponent
     with HasGameRef<MainGame>, CollisionCallbacks,TapCallbacks
 {
-  static const playerSize = 96.0;
+  static const playerSize = 48.0;
+
 
   //물리엔진
   Vector2 _velocity = Vector2.zero();
