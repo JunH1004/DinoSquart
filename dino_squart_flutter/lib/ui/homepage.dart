@@ -220,7 +220,7 @@ class MainContentBox extends StatelessWidget {
                             context.watch<HompageDataStore>().getWorkoutTime() == 0?
                             TextSpan(text: 'kcal/h',style: MyTextStyles.h4_w)
                                 :
-                            TextSpan(text: 'kcal',style: MyTextStyles.h4)
+                            TextSpan(text: 'kcal',style: MyTextStyles.h4_w)
                           ]
                         ))
                       ]
