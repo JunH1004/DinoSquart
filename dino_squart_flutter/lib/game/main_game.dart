@@ -8,6 +8,7 @@ import 'package:flame/game.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import '../workout_ui/workout_page.dart';
+import 'back_objects/clouds.dart';
 import 'back_objects/sky2.dart';
 import 'back_objects/sky3.dart';
 class MainGame extends FlameGame with HasCollisionDetection{
@@ -17,6 +18,7 @@ class MainGame extends FlameGame with HasCollisionDetection{
   late Sky2 sky2;
   late Sky3 sky3;
   late Ground ground;
+  late Cloud cloud;
   EnemyManager enemyManager = EnemyManager();
   GameManager gameManager = GameManager();
   BuildContext context;
@@ -33,6 +35,7 @@ class MainGame extends FlameGame with HasCollisionDetection{
     sky1 = Sky1();
     sky2 = Sky2();
     sky3 = Sky3();
+    cloud = Cloud();
     ground = Ground();
     add(player);
     add(enemyManager);
@@ -41,6 +44,7 @@ class MainGame extends FlameGame with HasCollisionDetection{
     add(sky2);
     add(sky3);
     add(ground);
+    add(cloud);
   }
 
   void update(double dt) {
