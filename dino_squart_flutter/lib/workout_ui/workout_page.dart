@@ -7,6 +7,7 @@ import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pose_ready_tab.da
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_tab.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/squat_tab.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,17 +77,20 @@ class WorkoutInfo extends ChangeNotifier{
       });
     }
 }
+//WorkoutInfo클래스 생성
 
 
 
-class WorkoutPage extends StatefulWidget {
+class WorkoutPage extends StatefulWidget
+{
   WorkoutPage({Key?key}) : super(key: key);
 
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
 }
-
-class _WorkoutPageState extends State<WorkoutPage> {
+//WorkoutPage 클래스 생성 main.dart의 GameboardState클래스에서 넘어오게 되는 함수 존재
+class _WorkoutPageState extends State<WorkoutPage> 
+{
   late SquatCounter squatCounter = SquatCounter(context);
   @override
   void initState(){
@@ -96,18 +100,18 @@ class _WorkoutPageState extends State<WorkoutPage> {
     context.read<WorkoutInfo>()..startSquatCycle();
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () 
+      {
         return Future(() => false);
       },
       child: Material(
         child: Stack(
           children: [
-            //PoseDetectorView(squartCounter),
-            Container(
-              color: MyColors.BLUE,
-            ),
+            PoseDetectorView(squatCounter),
+
             Positioned(
               top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
               child: SizedBox(

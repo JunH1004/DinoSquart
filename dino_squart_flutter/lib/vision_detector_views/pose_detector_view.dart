@@ -8,16 +8,17 @@ import '../squat_ai/squat_counter.dart';
 import '../workout_ui/workout_page.dart';
 import 'camera_view.dart';
 import 'painters/pose_painter.dart';
-class PoseDetectorView extends StatefulWidget {
+class PoseDetectorView extends StatefulWidget 
+{
   PoseDetectorView(this.squatCounter);
   SquatCounter squatCounter;
   @override
   State<StatefulWidget> createState() => _PoseDetectorViewState();
 }
 
-class _PoseDetectorViewState extends State<PoseDetectorView> {
-  final PoseDetector _poseDetector =
-      PoseDetector(options: PoseDetectorOptions());
+class _PoseDetectorViewState extends State<PoseDetectorView> 
+{
+  final PoseDetector _poseDetector = PoseDetector(options: PoseDetectorOptions());
   bool _canProcess = true;
   bool _isBusy = false;
   CustomPaint? _customPaint;
@@ -25,13 +26,15 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
 
 
   @override
-  void dispose() async {
+  void dispose() async 
+  {
     _canProcess = false;
     _poseDetector.close();
     super.dispose();
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     //final state = context.read<WorkoutPageStateStore>().state;
     return Material(
       child: Stack(
@@ -40,7 +43,8 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
             title: '',
             customPaint: _customPaint,
             text: _text,
-            onImage: (inputImage) {
+            onImage: (inputImage) 
+            {
               processImage(inputImage);
             },
           ),
@@ -49,7 +53,8 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     );
   }
 
-  Future<void> processImage(InputImage inputImage) async {
+  Future<void> processImage(InputImage inputImage) async 
+  {
     if (!_canProcess) return;
     if (_isBusy) return;
     _isBusy = true;
@@ -57,30 +62,33 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     //if (poses.isNotEmpty ) {
       //print("${poses[0].landmarks[PoseLandmarkType.nose]?.x}, ${poses[0].landmarks[PoseLandmarkType.nose]?.y}");
     //}
-    if (poses.isNotEmpty) {
+    if (poses.isNotEmpty) 
+    {
       widget.squatCounter.setPose(poses[0]);
       widget.squatCounter.doReps();
     }
-    else{
+    else
+    {
       _isBusy = false;
       return;
     }
-    if (inputImage.metadata?.size != null &&
-        inputImage.metadata?.rotation != null) {
-      if (poses.isNotEmpty) {
-        widget.squatCounter.setPose(poses[0]);
+    if (inputImage.metadata?.size != null && inputImage.metadata?.rotation != null) 
+      {
+        if (poses.isNotEmpty) 
+        {
+          widget.squatCounter.setPose(poses[0]);
+        }
+        final painter = PosePainter(poses, inputImage.metadata!.size, inputImage.metadata!.rotation,widget.squatCounter.getProgress());
+        _customPaint = CustomPaint(painter: painter);
+      } else 
+      {
+        _text = 'Poses found: ${poses.length}\n\n';
+        // TODO: set _customPaint to draw landmarks on top of image
+        _customPaint = null;
       }
-      final painter = PosePainter(
-          poses, inputImage.metadata!.size, inputImage.metadata!.rotation,widget.squatCounter.getProgress());
-      _customPaint = CustomPaint(painter: painter);
-
-    } else {
-      _text = 'Poses found: ${poses.length}\n\n';
-      // TODO: set _customPaint to draw landmarks on top of image
-      _customPaint = null;
-    }
     _isBusy = false;
-    if (mounted) {
+    if (mounted) 
+    {
       setState(() {});
     }
   }
