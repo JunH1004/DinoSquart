@@ -1,6 +1,7 @@
 import 'package:dino_squart_flutter/game/manager/enemy_manager.dart';
 import 'package:dino_squart_flutter/game/manager/game_manager.dart';
 import 'package:dino_squart_flutter/game/player.dart';
+import 'package:dino_squart_flutter/main_style.dart';
 import 'package:flame/game.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,11 @@ class MainGame extends FlameGame with HasCollisionDetection{
   EnemyManager enemyManager = EnemyManager();
   GameManager gameManager = GameManager();
   BuildContext context;
+  @override
+  Color backgroundColor() {
 
+    return MyColors.sky;
+  }
 
 
   @override

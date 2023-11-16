@@ -20,9 +20,11 @@ class MyColors{
   static final RED = Colors.red;
   static final GREEN = Color(0xff3ae52e);
   static final deepGreen = Color(0xff34A76D);
+  static final sky = Color(0xffa0e4f5);
   static final easy = Colors.greenAccent;
   static final normal = Colors.lightBlueAccent;
   static final hard = Colors.redAccent;
+
 }
 class MyTextStyles{
   static TextStyle h1 = TextStyle(color: Colors.black,fontSize: 42.sp,fontWeight: FontWeight.bold);

@@ -32,7 +32,12 @@ void main() async{
   await Flame.images.loadAll([
     "Tree.png",
     "Tree_up.png",
-    "Tree_down.png"
+    "Tree_down.png",
+    "greenDino.png",
+    "Sky1.png",
+    "Sky2.png",
+    "Sky3.png",
+
   ]);
 
   runApp(MultiProvider(

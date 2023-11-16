@@ -51,7 +51,7 @@ class WorkoutInfo extends ChangeNotifier{
       const interval = Duration(milliseconds: 10); // Adjust the interval as needed
 
       Timer.periodic(interval, (Timer timer) {
-        print(squatLevel);
+        //print(squatLevel);
         if (squatLevel > 0.4) {
           squatLevel -= interval.inMilliseconds / cycleDuration.inMilliseconds;
           minSquatLevel = min(minSquatLevel,squatLevel);
@@ -61,7 +61,7 @@ class WorkoutInfo extends ChangeNotifier{
           timer.cancel();
           // Cancel the decreasing timer
           Timer.periodic(interval, (Timer increaseTimer) {
-            print(squatLevel);
+            //print(squatLevel);
             if (squatLevel < 1.0) {
               squatLevel += interval.inMilliseconds / cycleDuration.inMilliseconds;
               minSquatLevel = min(minSquatLevel,squatLevel);
