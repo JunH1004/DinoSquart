@@ -56,7 +56,7 @@ class Player extends SpriteComponent
     gameRef.enemyManager.setEnemySpeed(10);
   }
 
-  void whenDamaged(){
+  void whenDamaged() {
     print("damaged!");
   }
 
