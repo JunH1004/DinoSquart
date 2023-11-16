@@ -16,13 +16,11 @@ class Enemy extends PositionComponent
 
   late final EnemyComponent _enemyComponent;
   double moveSpeed = 3;
-
-  Enemy({
-    super.position,
-  }) : super(
+  var initPos;
+  Enemy(this.initPos) : super(
     size: Vector2.all(enemySize),
     priority: 9,
-    anchor: Anchor.bottomCenter,
+    anchor: Anchor.bottomLeft,
   ){
     var TreeImage = Flame.images.fromCache("Tree.png");
     var TreeImage1 = Flame.images.fromCache("Tree_up.png");
@@ -44,7 +42,7 @@ class Enemy extends PositionComponent
   Future<void> onLoad() async {
     super.onLoad();
     //paint.color = Colors.yellow;
-    position = Vector2(gameRef.size.x * 2, gameRef.size.y - 80);
+    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 80);
     add(RectangleHitbox());
 
   }

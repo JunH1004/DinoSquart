@@ -9,7 +9,7 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   final double _initEnemySpeed = 3;
   double _enemySpeed = 3;
   final List<Enemy> _enemies = [];
-  List<int> _enemies_pattern = [1, 1, 1, 1, 1, 1, 1];
+  List<int> _enemies_pattern = [1, 2, 3, 3, 3, 1, 1];
   //패턴 설정. 0 : 아무것도 아님. 1 : 지상. 2 : 공중 적
   double timer = 0;
 
@@ -24,19 +24,29 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
         print("nothing");
       }
       else if(_enemies_pattern[0] == 1) {
-        final Enemy enemy1 = Enemy();
+        final Enemy enemy1 = Enemy(0);
         add(enemy1);
       }
       else if(_enemies_pattern[0] == 2) {
-        final Enemy_fly enemy1 = Enemy_fly();
+        final Enemy enemy1 = Enemy(0);
+        final Enemy enemy2 = Enemy(24);
         add(enemy1);
+        add(enemy2);
+      }
+      else if(_enemies_pattern[0] == 3) {
+        final Enemy enemy1 = Enemy(0);
+        final Enemy enemy2 = Enemy(24);
+        final Enemy enemy3 = Enemy(24+24);
+        add(enemy1);
+        add(enemy2);
+        add(enemy3);
+
       }
       print(_enemies_pattern[0]);
       _enemies_pattern.removeAt(0);
       _enemies_pattern.add(addPattern());
       timer = 0;
     }
-
   }
 
   int addPattern() {
