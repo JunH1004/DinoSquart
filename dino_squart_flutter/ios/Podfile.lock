@@ -160,7 +160,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
+  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_mlkit_commons: 26607e403b3301ec966e578a308c98c6ac3e9477
   google_mlkit_pose_detection: e061dd69ecd5a35727bffc478c04ed49bba36bb7
@@ -189,4 +189,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 6fbeae774a1ba42a6ff92f2be0bf793eceab4951
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.12.1

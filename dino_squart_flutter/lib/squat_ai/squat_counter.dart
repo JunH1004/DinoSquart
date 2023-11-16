@@ -129,9 +129,9 @@ class SquatCounter extends ChangeNotifier
     // }
 
     //Send date to WorkoutInfo 
-    context.read<WorkoutInfo>().setATH(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip));
-    context.read<WorkoutInfo>().setATK(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee));
-    context.read<WorkoutInfo>().setPropotion((calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip))/(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee)));
+    //context.read<WorkoutInfo>().setATH(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip));
+    //context.read<WorkoutInfo>().setATK(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee));
+    //context.read<WorkoutInfo>().setPropotion((calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip))/(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee)));
     
     
     

@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'main_style.dart';
 List<CameraDescription> cameras = [];
 
 const double _kItemExtent = 32.0;
@@ -52,28 +53,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(768, 1366),
-      minTextAdapt: true,
-      splitScreenMode: true,
+        designSize: const Size(768, 1366),
+        minTextAdapt: true,
+        splitScreenMode: true,
 
-      // Use builder only if you need to use library outside ScreenUtilInit context
-      builder: (_ , child) {
-        return MaterialApp(
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          DinoBoard(),
-          Divider(),
-          RecordBoard(),
-          Divider(),
-          GameBoard(),
-        ],
-      )
+        // Use builder only if you need to use library outside ScreenUtilInit context
+        builder: (_, child) {
+          return MaterialApp(
+            home: HomePage(),
+          );
+        }
     );
   }
 }
@@ -101,7 +90,7 @@ class RecordBoard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("통계",style: MyTextStyles.h1,),
+          Text("통계",style: MyTextStyles.h1,),
           Flexible(
             child: Column(
               children: [
@@ -121,9 +110,7 @@ class RecordBoard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
 
                       children: [
-                        reportBox('시간','12:30',''),
-                        reportBox('칼로리', '456','Kcal'),
-                        reportBox('피한 장애물', '98','개'),
+
                       ],
                     ),
                   ),
@@ -154,7 +141,7 @@ class _GameBoardState extends State<GameBoard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("게임",style: MyTextStyles.h1,),
+          Text("게임",style: MyTextStyles.h1,),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,10 +201,10 @@ class _GameBoardState extends State<GameBoard> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutPage()));
                       },
                     child: Container(
-                        color: MyColors.yellow,
+                        color: MyColors.white,
                         width: double.infinity,
                         height: double.infinity,
-                        child: const Center(child: Text("지금 바로 시작!",style: MyTextStyles.h1,))),
+                        child:  Center(child: Text("지금 바로 시작!",style: MyTextStyles.h1,))),
                   ),
                 ),
               ],
