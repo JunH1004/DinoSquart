@@ -52,7 +52,7 @@ class Player extends RectangleComponent
     gameRef.enemyManager.setEnemySpeed(10);
   }
 
-  void whenDamaged(){
+  void whenDamaged() {
     print("damaged!");
   }
 
