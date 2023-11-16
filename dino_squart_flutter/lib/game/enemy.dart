@@ -21,7 +21,7 @@ class Enemy extends PositionComponent
     super.position,
   }) : super(
     size: Vector2.all(enemySize),
-    priority: 2,
+    priority: 9,
     anchor: Anchor.bottomCenter,
   ){
     var TreeImage = Flame.images.fromCache("Tree.png");

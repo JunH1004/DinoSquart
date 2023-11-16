@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Player extends SpriteComponent
     with HasGameRef<MainGame>, CollisionCallbacks,TapCallbacks
@@ -15,7 +16,7 @@ class Player extends SpriteComponent
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
   final double jumpForce = 20;
-  final double groundYPos = 20;
+  double groundYPos = 10.h;
   bool isGround = false;
 
 
@@ -24,7 +25,7 @@ class Player extends SpriteComponent
   }) : super(
     size: Vector2.all(playerSize),
     anchor: Anchor.bottomCenter,
-    priority: 1,
+    priority: 10,
   ){
     var dinoImage = Flame.images.fromCache("greenDino.png");
     this.sprite = Sprite(dinoImage);
@@ -33,7 +34,7 @@ class Player extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    position = Vector2(size.x / 2 + 20, gameRef.size.y - groundYPos); //시작 위치
+    position = Vector2(size.x / 2 + 20, gameRef.size.y - 20.h); //시작 위치
     add(RectangleHitbox());
   }
 
