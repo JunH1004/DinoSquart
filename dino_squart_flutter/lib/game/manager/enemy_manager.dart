@@ -8,8 +8,8 @@ import 'dart:math';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EnemyManager extends Component with HasGameRef<MainGame>{
-  final double _initEnemySpeed = 6.w;
-  double _enemySpeed = 6.w;
+  final double _initEnemySpeed = 5.w;
+  double _enemySpeed = 5.w;
   final List<Enemy> _enemies = [];
   List<int> _enemies_pattern = [1, 2, 3, 3, 3, 1, 1];
   //패턴 설정. 0 : 아무것도 아님. 1 : 지상. 2 : 공중 적

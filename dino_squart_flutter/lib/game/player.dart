@@ -73,6 +73,9 @@ class Player extends PositionComponent
   }
 
   void jump(){
+    if (_playerComponent.current == PlayerState.jump){
+      return;
+    }
     print("jump");
     _velocity.y = -jumpForce;
     position += _velocity;

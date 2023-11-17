@@ -16,7 +16,7 @@ class Enemy extends PositionComponent
     with HasGameRef<MainGame>, CollisionCallbacks, DragCallbacks {
 
   late final EnemyComponent _enemyComponent;
-  double moveSpeed = 6.w;
+  double moveSpeed = 5.w;
   var initPos;
   Enemy(this.initPos) : super(
     size: Vector2.all(enemySize),
