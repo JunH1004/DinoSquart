@@ -5,18 +5,20 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class Player extends SpriteComponent
+import 'package:path/path.dart';
+enum PlayerState { run, jump}
+const playerSize = 96.0;
+class Player extends PositionComponent
     with HasGameRef<MainGame>, CollisionCallbacks,TapCallbacks
 {
-  static const playerSize = 128.0;
+  late final PlayerComponent _playerComponent;
 
 
   //물리엔진
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
   final double jumpForce = 20;
-  double groundYPos = 10.h;
+  double groundYPos = 30;
   bool isGround = false;
 
 
@@ -27,14 +29,34 @@ class Player extends SpriteComponent
     anchor: Anchor.bottomCenter,
     priority: 10,
   ){
-    var dinoImage = Flame.images.fromCache("greenDino.png");
-    this.sprite = Sprite(dinoImage);
+    var dinoImage = Flame.images.fromCache("DinoFull.png");
+
+    List<Sprite> spritesRun = [
+      Sprite(dinoImage,srcPosition: Vector2(0,144.5),srcSize: Vector2(143,144)),
+      Sprite(dinoImage,srcPosition: Vector2(144,144.5),srcSize: Vector2(143,144)),
+      Sprite(dinoImage,srcPosition: Vector2(288,144.5),srcSize: Vector2(143,144)),
+      Sprite(dinoImage,srcPosition: Vector2(432,144.5),srcSize: Vector2(143,144)),
+    ];
+
+    List<Sprite> spritesJump= [
+      Sprite(dinoImage,srcPosition: Vector2(144*5,144.5),srcSize: Vector2(143,144)),
+    ];
+
+    var animationRun = SpriteAnimation.spriteList(spritesRun, stepTime: 0.1);
+    var animationJump = SpriteAnimation.spriteList(spritesJump, stepTime: 1);
+    _playerComponent = PlayerComponent<PlayerState>({
+      PlayerState.run : animationRun,
+      PlayerState.jump : animationJump,
+    }
+    );
+    _playerComponent.current = PlayerState.run;
+    add(_playerComponent);
   }
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    position = Vector2(size.x / 2 + 20, gameRef.size.y - 20.h); //시작 위치
+    position = Vector2(size.x / 2 + 20, gameRef.size.y - groundYPos); //시작 위치
     add(RectangleHitbox());
   }
 
@@ -55,6 +77,7 @@ class Player extends SpriteComponent
     _velocity.y = -jumpForce;
     position += _velocity;
     gameRef.enemyManager.setEnemySpeed(10);
+    _playerComponent.current = PlayerState.jump;
   }
 
   void whenDamaged() {
@@ -69,6 +92,7 @@ class Player extends SpriteComponent
     else{
       gameRef.enemyManager.setInitEnemySpeed();
       position.y = gameRef.size.y - groundYPos;
+      _playerComponent.current = PlayerState.run;
     }
   }
 
@@ -80,5 +104,22 @@ class Player extends SpriteComponent
     if (other is Enemy) {
       whenDamaged();
     }
+  }
+  void playerUpdate(PlayerState playerState) {
+    _playerComponent.playerUpdate(playerState);
+  }
+}
+
+class PlayerComponent<T> extends SpriteAnimationGroupComponent<T> {
+  PlayerComponent(Map<T, SpriteAnimation> playerAnimationMap)
+      : super(size: Vector2(playerSize, playerSize), animations: playerAnimationMap);
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
+
+  void playerUpdate(PlayerState playerState) {
+    this.current = playerState as T?;
   }
 }

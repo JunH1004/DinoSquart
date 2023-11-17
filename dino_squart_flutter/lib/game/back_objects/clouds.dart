@@ -27,7 +27,7 @@ class Cloud extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    position = Vector2(0, 0); //시작 위치
+    position = Vector2(0, 40); //시작 위치
     add(RectangleHitbox());
   }
 

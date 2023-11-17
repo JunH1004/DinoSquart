@@ -38,7 +38,8 @@ void main() async{
     "Sky2.png",
     "Sky3.png",
     "Ground.png",
-    "clouds.png"
+    "clouds.png",
+    "DinoFull.png",
 
   ]);
 
