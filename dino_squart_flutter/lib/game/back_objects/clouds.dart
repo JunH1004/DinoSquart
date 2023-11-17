@@ -16,7 +16,7 @@ class Cloud extends SpriteComponent
   Cloud({
     super.position
   }) : super(
-    size: Vector2(1280,240) * 0.6,
+    size: Vector2(2560.w,480.h) * 0.6,
     anchor: Anchor.topLeft,
     priority: -2,
   ){
@@ -27,7 +27,7 @@ class Cloud extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    position = Vector2(0, 40); //시작 위치
+    position = Vector2(0.w, 80.h); //시작 위치
     add(RectangleHitbox());
   }
 
@@ -35,7 +35,7 @@ class Cloud extends SpriteComponent
   void update(double dt) {
     super.update(dt);
     position.x = position.x - moveSpeed;
-    if (position.x < -1280 * 0.5 * 0.6) {
+    if (position.x < -2560.w * 0.5 * 0.6) {
       position.x = 0;
     }
   }

@@ -16,7 +16,7 @@ class Ground extends SpriteComponent
   Ground({
     super.position
   }) : super(
-    size: Vector2(1280,64),
+    size: Vector2(2560.w,128.h),
     anchor: Anchor.bottomLeft,
     priority: -8,
   ){
@@ -35,7 +35,7 @@ class Ground extends SpriteComponent
   void update(double dt) {
     super.update(dt);
     position.x = position.x - moveSpeed;
-    if (position.x < -1280 * 0.5) {
+    if (position.x < -2560.w * 0.5) {
       position.x = 0;
     }
   }

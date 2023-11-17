@@ -16,7 +16,7 @@ class Sky2 extends SpriteComponent
   Sky2({
     super.position
   }) : super(
-    size: Vector2(1280,88),
+    size: Vector2(1280.w,88.h),
     anchor: Anchor.bottomLeft,
     priority: -2,
   ){
@@ -27,7 +27,7 @@ class Sky2 extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    position = Vector2(0, gameRef.size.y - 64); //시작 위치
+    position = Vector2(0, gameRef.size.y - 128.h); //시작 위치
     add(RectangleHitbox());
   }
 
@@ -35,7 +35,7 @@ class Sky2 extends SpriteComponent
   void update(double dt) {
     super.update(dt);
     position.x = position.x - moveSpeed;
-    if (position.x < -1280 * 0.5) {
+    if (position.x < -2560.w * 0.5) {
       position.x = 0;
     }
   }

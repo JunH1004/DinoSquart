@@ -6,16 +6,17 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
 
 import 'manager/game_manager.dart';
 
-const enemySize = 16.0;
+var enemySize = 32.w;
 class Enemy extends PositionComponent
     with HasGameRef<MainGame>, CollisionCallbacks, DragCallbacks {
 
   late final EnemyComponent _enemyComponent;
-  double moveSpeed = 3;
+  double moveSpeed = 6.w;
   var initPos;
   Enemy(this.initPos) : super(
     size: Vector2.all(enemySize),
@@ -42,7 +43,7 @@ class Enemy extends PositionComponent
   Future<void> onLoad() async {
     super.onLoad();
     //paint.color = Colors.yellow;
-    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 80);
+    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 160.h);
     add(RectangleHitbox());
 
   }
@@ -70,7 +71,7 @@ class Enemy extends PositionComponent
 
 class EnemyComponent extends SpriteAnimationComponent {
   EnemyComponent(SpriteAnimation playerAnimationMap)
-      : super(size: Vector2(3,4) * enemySize, animation: playerAnimationMap);
+      : super(size: Vector2(3.w,4.h) * enemySize, animation: playerAnimationMap);
   @override
   void update(double dt){
     super.update(dt);

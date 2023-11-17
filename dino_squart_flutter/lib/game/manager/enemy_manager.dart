@@ -5,9 +5,11 @@ import 'package:dino_squart_flutter/game/manager/game_manager.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class EnemyManager extends Component with HasGameRef<MainGame>{
-  final double _initEnemySpeed = 3;
-  double _enemySpeed = 3;
+  final double _initEnemySpeed = 6.w;
+  double _enemySpeed = 6.w;
   final List<Enemy> _enemies = [];
   List<int> _enemies_pattern = [1, 2, 3, 3, 3, 1, 1];
   //패턴 설정. 0 : 아무것도 아님. 1 : 지상. 2 : 공중 적
@@ -29,14 +31,14 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
       }
       else if(_enemies_pattern[0] == 2) {
         final Enemy enemy1 = Enemy(0);
-        final Enemy enemy2 = Enemy(24);
+        final Enemy enemy2 = Enemy(48.w);
         add(enemy1);
         add(enemy2);
       }
       else if(_enemies_pattern[0] == 3) {
         final Enemy enemy1 = Enemy(0);
-        final Enemy enemy2 = Enemy(24);
-        final Enemy enemy3 = Enemy(24+24);
+        final Enemy enemy2 = Enemy(48.w);
+        final Enemy enemy3 = Enemy(96.w);
         add(enemy1);
         add(enemy2);
         add(enemy3);
@@ -54,7 +56,7 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   }
 
   void setEnemySpeed(double d){
-    _enemySpeed = d;
+    _enemySpeed = d.w;
   }
   void setInitEnemySpeed(){
     _enemySpeed = _initEnemySpeed;

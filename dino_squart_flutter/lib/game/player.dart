@@ -7,7 +7,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
 enum PlayerState { run, jump}
-const playerSize = 96.0;
+double playerSize = 200.0.w ;
 class Player extends PositionComponent
     with HasGameRef<MainGame>, CollisionCallbacks,TapCallbacks
 {
@@ -76,7 +76,7 @@ class Player extends PositionComponent
     print("jump");
     _velocity.y = -jumpForce;
     position += _velocity;
-    gameRef.enemyManager.setEnemySpeed(10);
+    gameRef.enemyManager.setEnemySpeed(18);
     _playerComponent.current = PlayerState.jump;
   }
 
