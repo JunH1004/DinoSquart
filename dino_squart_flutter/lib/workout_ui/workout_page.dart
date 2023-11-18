@@ -46,35 +46,10 @@ class WorkoutInfo extends ChangeNotifier{
       squatCount += 1;
       notifyListeners();
     }
-    void startSquatCycle() {
-      const cycleDuration = Duration(seconds: 2);
-      const interval = Duration(milliseconds: 10); // Adjust the interval as needed
 
-      Timer.periodic(interval, (Timer timer) {
-        //print(squatLevel);
-        if (squatLevel > 0.4) {
-          squatLevel -= interval.inMilliseconds / cycleDuration.inMilliseconds;
-          minSquatLevel = min(minSquatLevel,squatLevel);
-          notifyListeners();
-        } else {
-          // Squat level reached 0, start increasing it
-          timer.cancel();
-          // Cancel the decreasing timer
-          Timer.periodic(interval, (Timer increaseTimer) {
-            //print(squatLevel);
-            if (squatLevel < 1.0) {
-              squatLevel += interval.inMilliseconds / cycleDuration.inMilliseconds;
-              minSquatLevel = min(minSquatLevel,squatLevel);
-              notifyListeners();
-            } else {
-              minSquatLevel = 1.0;
-              // Squat level reached 1.0, restart the cycle
-              increaseTimer.cancel(); // Cancel the increasing timer
-              startSquatCycle();
-            }
-          });
-        }
-      });
+    setSquatLevel(double d){
+      squatLevel = d;
+      notifyListeners();
     }
 }
 //WorkoutInfo클래스 생성
@@ -97,7 +72,6 @@ class _WorkoutPageState extends State<WorkoutPage>
     super.initState();
     context.read<WorkoutPageStateStore>().init();
     context.read<WorkoutInfo>().squatCount = 0;
-    context.read<WorkoutInfo>()..startSquatCycle();
   }
   @override
   Widget build(BuildContext context) 

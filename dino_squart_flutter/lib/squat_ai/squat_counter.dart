@@ -82,6 +82,8 @@ class SquatCounter extends ChangeNotifier
       restart = true;
       return;
     }
+
+    context.read<WorkoutInfo>().setSquatLevel(getSquatLevel());
     // if(context.read<WorkoutPageStateStore>().state == WorkoutPageState.Stand){
     //   if (isGripBar()) {
     //     if (standTime == 0) {
@@ -236,6 +238,19 @@ class SquatCounter extends ChangeNotifier
       return true;
     }
     return false;
+  }
+  double getSquatLevel(){
+    if (pose.landmarks.isEmpty)
+    {
+      return 1.0;
+    }
+    final lATHLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip); //왼쪽 ATH길이 계산
+    final rATHLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightHip); //오른쪽 ATH길이 계산
+    final lATKLength = calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee); //왼쪽 ATH길이 계산
+    final rATKLength = calculateDistance(pose, PoseLandmarkType.rightAnkle, PoseLandmarkType.rightKnee); //오른쪽 ATH길이 계산
+    final avg_ATHLength = (rATHLength+lATHLength)/2; // 좌우 ATH평균 길이
+    final avg_ATKLength = (rATKLength+lATKLength)/2; // 좌우 ATK평균 길이
+    return ((avg_ATHLength/avg_ATKLength)-1).clamp(0.0, 1.0);
   }
   bool isUp() // 올라왔을때의 각도 값과 Hip과 Ankle 사이의 거리를 이용해 정상적으로 올라왔는지 확인하는 값 추후에 올라온 정도를 를 isDown()의 것과 같이 리니어하게 출려갛는 방안 모색 
   {
