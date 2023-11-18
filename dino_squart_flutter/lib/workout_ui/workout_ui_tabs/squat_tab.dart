@@ -89,7 +89,7 @@ class _SquatTabState extends State<SquatTab> {
                             builder: (context, constraints) {
                               return Padding(
                                 padding: EdgeInsets.only(
-                                    top: constraints.biggest.height * (1.0 - context.watch<WorkoutInfo>().squatLevel),
+                                    top: constraints.biggest.height * (1 - context.watch<WorkoutInfo>().squatLevel),
                                     bottom: constraints.biggest.height * context.watch<WorkoutInfo>().minSquatLevel),
                                 child: Container(
                                   decoration: BoxDecoration(

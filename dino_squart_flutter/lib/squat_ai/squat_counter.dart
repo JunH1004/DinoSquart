@@ -114,6 +114,13 @@ class SquatCounter extends ChangeNotifier
       }
     }
 
+    if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Workout){
+      //정지 중 재개
+      if (context.read<WorkoutInfo>().bodySize > 300000){
+        context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Pause);
+      }
+    }
+
     if (restart) 
     {
     
@@ -217,7 +224,7 @@ class SquatCounter extends ChangeNotifier
     final min_maxLength = ((avg_ATHLength/avg_ATKLength)-1).clamp(0.0, 1.0);
     print(min_maxLength);
 
-    if ( min_maxLength>0.7) 
+    if ( min_maxLength>0.8)
     {
       return true;
     }

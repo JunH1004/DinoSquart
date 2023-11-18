@@ -30,7 +30,7 @@ class WorkoutPageStateStore extends ChangeNotifier{
 }
 class WorkoutInfo extends ChangeNotifier{
     double squatLevel = 1.0; //0.0 ~ 1.0 1이 일어난거
-    double minSquatLevel = 1.0;
+    final double minSquatLevel = 0;
     final double goodTopLine = 0.75;
     final double goodBottomLine = 0.10;
     final double perfectTopLine = 0.60;
@@ -59,7 +59,7 @@ class WorkoutInfo extends ChangeNotifier{
 
     //TODO GETTER SETTER 만들기
     addSquartCount(){
-      squatCount += 1;
+      squatCount += 1; //스쿼트 하면 초기화
       notifyListeners();
     }
 
