@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
@@ -82,61 +83,7 @@ class SquatCounter extends ChangeNotifier
       restart = true;
       return;
     }
-    // if(context.read<WorkoutPageStateStore>().state == WorkoutPageState.Stand){
-    //   if (isGripBar()) {
-    //     if (standTime == 0) {
-    //       startStandTimer();
-    //     }
-    //     if (standTime >= 1000){
-    //       context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Workout);
-    //       context.read<WorkoutInfo>().setIsArmDown(false);
-    //       restart = true;
-    //       context.read<WorkoutInfo>().setGripBarTime(0);
-    //       standTime = 0;
-    //       stopStandTimer();
-    //       //
-    //
-    //     }
-    //   }
-    //   else{
-    //     stopStandTimer();
-    //     context.read<WorkoutInfo>().setGripBarTime(0);
-    //     standTime = 0;
-    //   }
-    //   return;
-    // }
-
-    // if (isBarReleased()){
-    //
-    // }
-
-    // else if (isGripBar()) {
-    //   if (context.read<WorkoutInfo>().isArmDown == true){
-    //     startStandTimer();
-    //     context.read<WorkoutInfo>().armDownTime =0;
-    //     context.read<WorkoutInfo>().setIsArmDown(false);
-    //     context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Stand);
-    //   }
-    // }
-    // else if (context.read<WorkoutInfo>().isArmDown == true){
-    //   context.read<WorkoutInfo>().setIsArmDown(true);
-    //   startArmDownTimer();
-    //   if (context.read<WorkoutInfo>().armDownTime > 3){
-    //     skipSet();
-    //     stopArmDownTimer();
-    //   }
-    //   return;
-    // }
-
-    //Send date to WorkoutInfo 
-    //context.read<WorkoutInfo>().setATH(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip));
-    //context.read<WorkoutInfo>().setATK(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee));
-    //context.read<WorkoutInfo>().setPropotion((calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftHip))/(calculateDistance(pose, PoseLandmarkType.leftAnkle, PoseLandmarkType.leftKnee)));
-    
-    
-    
-    
-    
+    isCorrectPose();
     if (restart) 
     {
     
@@ -258,9 +205,102 @@ class SquatCounter extends ChangeNotifier
     }
     return false;
   }
-  bool isCorrectPose() 
-  {
-    return true;
+  bool isCorrectPose() {
+    if (pose.landmarks.isEmpty) {
+      return false;
+    }
+
+    // Extracting the landmarks
+    List<Offset> landmarks = pose.landmarks.values.map((point) {
+      return Offset(point.x, point.y);
+    }).toList();
+
+    // Applying Graham Scan algorithm to find convex hull
+    List<Offset> convexHull = grahamScan(landmarks);
+
+    // Calculate the area of the convex hull
+    double area = calculateConvexHullArea(convexHull);
+    print('area : $area');
+    // You can adjust the threshold for a valid pose area based on your requirements
+    double threshold = 100.0; // Adjust this value accordingly
+
+    // Return true if the calculated area is above the threshold
+    return area > threshold;
+  }
+
+  List<Offset> grahamScan(List<Offset> points) {
+    if (points.length < 3) {
+      // Convex hull not possible with less than 3 points
+      return points;
+    }
+
+    Offset findLowestPoint(List<Offset> points) {
+      Offset lowest = points[0];
+      for (Offset point in points) {
+        if (point.dy < lowest.dy || (point.dy == lowest.dy && point.dx < lowest.dx)) {
+          lowest = point;
+        }
+      }
+      return lowest;
+    }
+    double distanceTo(Offset a, Offset b) {
+      double dx = b.dx - a.dx;
+      double dy = b.dy - a.dy;
+      return sqrt(dx * dx + dy * dy);
+    }
+    // Sort points based on polar angle from the lowest point
+    points.sort((a, b) {
+      double angleA = atan2(a.dy - findLowestPoint(points).dy, a.dx - findLowestPoint(points).dx);
+      double angleB = atan2(b.dy - findLowestPoint(points).dy, b.dx - findLowestPoint(points).dx);
+
+      if (angleA < angleB) {
+        return -1;
+      } else if (angleA > angleB) {
+        return 1;
+      } else {
+        // If two points have the same polar angle, the one closer comes first
+        double distanceA = distanceTo(a,findLowestPoint(points));
+        double distanceB = distanceTo(b,findLowestPoint(points));
+        return distanceA.compareTo(distanceB);
+      }
+    });
+
+
+    // Build the convex hull
+    List<Offset> convexHull = [points[0], points[1]];
+    for (int i = 2; i < points.length; i++) {
+      while (convexHull.length >= 2 &&
+          orientation(convexHull[convexHull.length - 2], convexHull[convexHull.length - 1], points[i]) != 2) {
+        convexHull.removeLast();
+      }
+      convexHull.add(points[i]);
+    }
+
+    return convexHull;
+  }
+  // Helper function to determine orientation
+  // 0 -> Collinear, 1 -> Clockwise, 2 -> Counterclockwise
+  int orientation(Offset p, Offset q, Offset r) {
+    double val = (q.dy - p.dy) * (r.dx - q.dx) - (q.dx - p.dx) * (r.dy - q.dy);
+    if (val == 0) {
+      return 0;
+    }
+    return (val > 0) ? 1 : 2;
+  }
+
+  // Calculate the area of the convex hull using shoelace formula
+  double calculateConvexHullArea(List<Offset> convexHull) {
+    int n = convexHull.length;
+    double area = 0;
+
+    for (int i = 0; i < n; i++) {
+      int j = (i + 1) % n;
+      area += convexHull[i].dx * convexHull[j].dy;
+      area -= convexHull[j].dx * convexHull[i].dy;
+    }
+
+    area = area.abs() / 2.0;
+    return area;
   }
   
 }
