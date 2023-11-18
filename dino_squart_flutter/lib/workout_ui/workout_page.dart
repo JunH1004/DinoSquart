@@ -36,6 +36,7 @@ class WorkoutInfo extends ChangeNotifier{
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
 
+
     double bodySize = 0;
     double bodyHeight = 0;
     setBodyHeight(double d ){

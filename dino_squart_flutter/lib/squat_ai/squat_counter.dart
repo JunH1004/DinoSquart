@@ -89,6 +89,7 @@ class SquatCounter extends ChangeNotifier
     if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Ready){
       //print('stand : $standTime');
       double ps = getPoseSize();
+      getPoseHeight();
       //print(ps);
       if (200000 > ps && ps > 100000){
         startStandTimer();
@@ -102,7 +103,17 @@ class SquatCounter extends ChangeNotifier
       }
     }
 
+
     context.read<WorkoutInfo>().setSquatLevel(getSquatLevel());
+    getPoseSize();
+
+    if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Pause){
+      //정지 중 재개
+      if (context.read<WorkoutInfo>().bodySize > 150000){
+        context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Workout);
+      }
+    }
+
     if (restart) 
     {
     

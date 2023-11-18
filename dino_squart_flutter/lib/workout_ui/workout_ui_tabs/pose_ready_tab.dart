@@ -17,6 +17,7 @@ class _ReadyTabState extends State<ReadyTab> {
   @override
   Widget build(BuildContext context) {
     int readyTime = ((4000-context.watch<WorkoutInfo>().readyTime) *0.001 ).toInt();
+    //TODO 길이도 상태 조건에 포함시키기
     if (context.watch<WorkoutInfo>().bodySize < 200000){
       displayText = "전신이 보이게 서주세요";
     }
@@ -34,7 +35,6 @@ class _ReadyTabState extends State<ReadyTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(displayText,style: MyTextStyles.h1_w,),
-                  Text((context.watch<WorkoutInfo>().bodySize * 0.001).toInt().toString(),style: MyTextStyles.h1_w,),
 
                   readyTime <= 3?
                   Text(readyTime.toString(),style: MyTextStyles.h1_w,)

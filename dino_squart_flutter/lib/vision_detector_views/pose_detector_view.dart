@@ -69,6 +69,13 @@ class _PoseDetectorViewState extends State<PoseDetectorView>
     }
     else
     {
+      //사람이 인식되지 않은 경우
+
+      if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Workout) {
+        context.read<WorkoutPageStateStore>().setPageState(
+            WorkoutPageState.Pause);
+        context.read<WorkoutInfo>().setBodySize(0);
+      }
       _isBusy = false;
       return;
     }
