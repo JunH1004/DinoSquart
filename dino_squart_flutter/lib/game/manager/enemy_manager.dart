@@ -2,6 +2,7 @@ import 'package:dino_squart_flutter/game/enemy.dart';
 import 'package:dino_squart_flutter/game/enemy_fly.dart';
 import 'package:dino_squart_flutter/game/main_game.dart';
 import 'package:dino_squart_flutter/game/manager/game_manager.dart';
+import 'package:dino_squart_flutter/game/manager/level_manager.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
 
@@ -14,7 +15,11 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   List<int> _enemies_pattern = [1, 2, 3, 3, 3, 1, 1];
   //패턴 설정. 0 : 아무것도 아님. 1 : 지상. 2 : 공중 적
   double timer = 0;
-
+  @override
+  Future<void> onLoad() async {
+    LevelManager levelManager = LevelManager();
+    levelManager.getQueue();
+  }
   @override
   void update(double dt) {
     timer += dt;
