@@ -16,7 +16,7 @@ class Sky2 extends SpriteComponent
   Sky2({
     super.position
   }) : super(
-    size: Vector2(1280.w,88.h),
+    size: Vector2(2560.w,176.h),
     anchor: Anchor.bottomLeft,
     priority: -2,
   ){

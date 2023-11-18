@@ -75,7 +75,6 @@ class WorkoutInfo extends ChangeNotifier{
 class WorkoutPage extends StatefulWidget
 {
   WorkoutPage({Key?key}) : super(key: key);
-
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
 }
@@ -83,6 +82,7 @@ class WorkoutPage extends StatefulWidget
 class _WorkoutPageState extends State<WorkoutPage> 
 {
   late SquatCounter squatCounter = SquatCounter(context);
+  late MainGame mainGame = MainGame(context);
   @override
   void initState(){
     super.initState();
@@ -103,15 +103,17 @@ class _WorkoutPageState extends State<WorkoutPage>
           children: [
 
             PoseDetectorView(squatCounter),
-            state == WorkoutPageState.Workout?
-            Positioned(
-              top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,  // 화면 너비에 맞게 설정
-                height: MediaQuery.of(context).size.height / 2,  // 화면 높이의 절반으로 설정
-                child: GameWidget(game: MainGame(context)),
+            Visibility(
+              visible: state == WorkoutPageState.Workout,
+              child: Positioned(
+                top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,  // 화면 너비에 맞게 설정
+                  height: MediaQuery.of(context).size.height / 2,  // 화면 높이의 절반으로 설정
+                  child: GameWidget(game: mainGame),
+                ),
               ),
-            )  : Container(),
+            ),
             [ // 탭 리스트
               ReadyTab(),
               SquatTab(),

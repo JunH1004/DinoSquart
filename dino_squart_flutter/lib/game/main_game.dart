@@ -48,6 +48,8 @@ class MainGame extends FlameGame with HasCollisionDetection{
     add(sky3);
     add(ground);
     add(cloud);
+    int squatCnt = context.read<WorkoutInfo>().squatCount;
+    lastSquatCnt = squatCnt;
   }
 
   void update(double dt) {
