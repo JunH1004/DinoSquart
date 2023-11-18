@@ -190,7 +190,7 @@ class SquatCounter extends ChangeNotifier
     final avg_ATKLength = (rATKLength+lATKLength)/2; // 좌우 ATK평균 길이
     final min_maxLength = ((avg_ATHLength/avg_ATKLength)-1).clamp(0.0, 1.0);
     
-    if ( min_maxLength<0.3) 
+    if ( min_maxLength<0.5)
     {
       return true;
     }

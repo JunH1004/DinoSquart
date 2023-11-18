@@ -16,13 +16,13 @@ class SquatTab extends StatefulWidget {
 }
 
 class _SquatTabState extends State<SquatTab> {
-  final double goodTopLine = 0.75;
+  final double goodTopLine = 0.5;
 
-  final double goodBottomLine = 0.10;
+  final double goodBottomLine = 0.0;
 
-  final double perfectTopLine = 0.60;
+  final double perfectTopLine = 0.25;
 
-  final double perfectBottomLine = 0.25;
+  final double perfectBottomLine = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class _SquatTabState extends State<SquatTab> {
                               return Padding(
                                 padding: EdgeInsets.only(
                                     top: constraints.biggest.height * (1 - context.watch<WorkoutInfo>().squatLevel),
-                                    bottom: constraints.biggest.height * context.watch<WorkoutInfo>().minSquatLevel),
+                                    bottom: 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(32),bottomRight: Radius.circular(32)),
