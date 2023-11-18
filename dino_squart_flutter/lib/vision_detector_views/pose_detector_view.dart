@@ -78,7 +78,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView>
         {
           widget.squatCounter.setPose(poses[0]);
         }
-        final painter = PosePainter(poses, inputImage.metadata!.size, inputImage.metadata!.rotation,widget.squatCounter.getProgress());
+        final painter = PosePainter(poses, inputImage.metadata!.size, inputImage.metadata!.rotation,1);
         _customPaint = CustomPaint(painter: painter);
       } else 
       {

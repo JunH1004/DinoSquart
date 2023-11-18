@@ -59,7 +59,7 @@ class SquatCounter extends ChangeNotifier
     _standTimer = Timer.periodic(Duration(milliseconds: 50), (timer) 
     {
       standTime += 50;
-      //context.read<WorkoutInfo>().setGripBarTime(gripTime);
+      context.read<WorkoutInfo>().setReadyTime(standTime);
     });
   }
   void stopStandTimer() 
@@ -69,6 +69,8 @@ class SquatCounter extends ChangeNotifier
       return;
     }
     isStandTimerRunning = false;
+    standTime = 0;
+    context.read<WorkoutInfo>().setReadyTime(standTime);
     _standTimer.cancel();
   }
 
@@ -83,7 +85,23 @@ class SquatCounter extends ChangeNotifier
       restart = true;
       return;
     }
-    isCorrectPose();
+
+    if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Ready){
+      //print('stand : $standTime');
+      double ps = getPoseSize();
+      //print(ps);
+      if (200000 > ps && ps > 100000){
+        startStandTimer();
+      }
+      else{
+
+        stopStandTimer();
+      }
+      if (standTime > 3000){
+        context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Workout);
+      }
+    }
+
     context.read<WorkoutInfo>().setSquatLevel(getSquatLevel());
     if (restart) 
     {
@@ -117,31 +135,6 @@ class SquatCounter extends ChangeNotifier
 
 
 
-  double getProgress() 
-  {
-    if (pose.landmarks.isEmpty)
-    {
-      return 0;
-    }
-    if (!isCorrectPose())
-    {
-      return 0;
-    }
-    //각도 계산
-    final lAngle = getAngle(pose, PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle);
-    final rAngle = getAngle(pose, PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle);
-
-    // 평균 각도 계산
-    final averageAngle = (lAngle + rAngle) / 2.0;
-
-    // 각도의 범위를 맞춰주기 위한 보간(interpolation) 계산
-    final progress = (70 - averageAngle) / (70 - 150);
-
-    // 계산된 보간값이 0.0에서 1.0 사이에 머무르도록 보장
-    final clampedProgress = progress.clamp(0.0, 1.0);
-
-    return clampedProgress;
-  }
 
 
   double getAvgLength() 
@@ -219,48 +212,64 @@ class SquatCounter extends ChangeNotifier
     }
     return false;
   }
-  bool isCorrectPose() {
+  double getPoseHeight(){
+    final poseHeight =
+        (calculateDistance(pose, PoseLandmarkType.nose, PoseLandmarkType.leftAnkle)
+            + calculateDistance(pose, PoseLandmarkType.nose, PoseLandmarkType.rightAnkle)) * 0.5;
+    context.read<WorkoutInfo>().setBodyHeight(poseHeight);
+    return poseHeight;
+  }
+  double getPoseSize(){
     if (pose.landmarks.isEmpty) {
-      return false;
+      return 0;
     }
-
     // Extracting the landmarks
-    List<Offset> landmarks = pose.landmarks.values.map((point) {
+    List<Offset> landmarks = pose.landmarks.values.where((landmark) {
+      // Exclude wrist, elbow, and shoulder landmarks
+      return landmark.type != PoseLandmarkType.leftWrist &&
+          landmark.type != PoseLandmarkType.rightWrist &&
+
+          landmark.type != PoseLandmarkType.leftElbow &&
+          landmark.type != PoseLandmarkType.rightElbow &&
+
+          landmark.type != PoseLandmarkType.leftThumb &&
+          landmark.type != PoseLandmarkType.rightThumb &&
+
+          landmark.type != PoseLandmarkType.leftIndex &&
+          landmark.type != PoseLandmarkType.rightIndex &&
+
+          landmark.type != PoseLandmarkType.leftPinky &&
+          landmark.type != PoseLandmarkType.rightPinky;
+    }).map((point) {
       return Offset(point.x, point.y);
     }).toList();
-
     // Applying Graham Scan algorithm to find convex hull
     List<Offset> convexHull = grahamScan(landmarks);
 
     // Calculate the area of the convex hull
-    double area = calculateConvexHullArea(convexHull);
-    print('area : $area');
-    // You can adjust the threshold for a valid pose area based on your requirements
-    double threshold = 100.0; // Adjust this value accordingly
+    context.read<WorkoutInfo>().setBodySize(calculateConvexHullArea(convexHull));
+    return calculateConvexHullArea(convexHull);
+  }
 
-    // Return true if the calculated area is above the threshold
-    return area > threshold;
+  Offset findLowestPoint(List<Offset> points) {
+    Offset lowest = points[0];
+    for (Offset point in points) {
+      if (point.dy < lowest.dy || (point.dy == lowest.dy && point.dx < lowest.dx)) {
+        lowest = point;
+      }
+    }
+    return lowest;
+  }
+  double distanceTo(Offset a, Offset b) {
+    double dx = b.dx - a.dx;
+    double dy = b.dy - a.dy;
+    return sqrt(dx * dx + dy * dy);
   }
 
   List<Offset> grahamScan(List<Offset> points) {
     if (points.length < 3) {
       // Convex hull not possible with less than 3 points
       return points;
-    }
-
-    Offset findLowestPoint(List<Offset> points) {
-      Offset lowest = points[0];
-      for (Offset point in points) {
-        if (point.dy < lowest.dy || (point.dy == lowest.dy && point.dx < lowest.dx)) {
-          lowest = point;
-        }
-      }
-      return lowest;
-    }
-    double distanceTo(Offset a, Offset b) {
-      double dx = b.dx - a.dx;
-      double dy = b.dy - a.dy;
-      return sqrt(dx * dx + dy * dy);
     }
     // Sort points based on polar angle from the lowest point
     points.sort((a, b) {

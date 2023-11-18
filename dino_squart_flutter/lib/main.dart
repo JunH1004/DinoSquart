@@ -5,6 +5,7 @@ import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,10 @@ const List<String> _targetTimes = <String>[
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   cameras = await availableCameras();
 
   await Flame.images.loadAll([

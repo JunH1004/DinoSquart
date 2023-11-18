@@ -36,6 +36,21 @@ class WorkoutInfo extends ChangeNotifier{
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
 
+    double bodySize = 0;
+    double bodyHeight = 0;
+    setBodyHeight(double d ){
+      bodyHeight = d;
+      notifyListeners();
+    }
+    setBodySize(double d ){
+      bodySize = d;
+      notifyListeners();
+    }
+    int readyTime  = 0;
+    setReadyTime(int d){
+      readyTime = d;
+      notifyListeners();
+    }
     int squatCount = 0;
     int _totalTimer = 0;
     int _totalAvoidCnt = 0;
@@ -76,6 +91,7 @@ class _WorkoutPageState extends State<WorkoutPage>
   @override
   Widget build(BuildContext context) 
   {
+    WorkoutPageState state = context.watch<WorkoutPageStateStore>().state;
     return WillPopScope(
       onWillPop: () 
       {
@@ -84,8 +100,9 @@ class _WorkoutPageState extends State<WorkoutPage>
       child: Material(
         child: Stack(
           children: [
-            PoseDetectorView(squatCounter),
 
+            PoseDetectorView(squatCounter),
+            state == WorkoutPageState.Workout?
             Positioned(
               top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
               child: SizedBox(
@@ -93,14 +110,13 @@ class _WorkoutPageState extends State<WorkoutPage>
                 height: MediaQuery.of(context).size.height / 2,  // 화면 높이의 절반으로 설정
                 child: GameWidget(game: MainGame(context)),
               ),
-            ),
+            )  : Container(),
             [ // 탭 리스트
               ReadyTab(),
               SquatTab(),
               PauseTab(),
               ReportTab(),
-
-            ][1]
+            ][context.watch<WorkoutPageStateStore>().state.index],
 
             //game view on upper
           ],
