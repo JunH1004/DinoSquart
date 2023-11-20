@@ -17,7 +17,7 @@ class Player extends PositionComponent
   //물리엔진
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
-  final double jumpForce = 20;
+  final double jumpForce = 15;
   double groundYPos = 30;
   bool isGround = false;
 
@@ -69,15 +69,15 @@ class Player extends PositionComponent
   @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
-    jump();
+    jump(1);
   }
 
-  void jump(){
+  void jump(double booster){
     if (_playerComponent.current == PlayerState.jump){
       return;
     }
     print("jump");
-    _velocity.y = -jumpForce;
+    _velocity.y = -jumpForce * booster;
     position += _velocity;
     gameRef.enemyManager.setEnemySpeed(18);
     _playerComponent.current = PlayerState.jump;

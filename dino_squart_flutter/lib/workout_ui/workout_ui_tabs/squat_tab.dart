@@ -26,7 +26,6 @@ class _SquatTabState extends State<SquatTab> {
 
   @override
   Widget build(BuildContext context) {
-    int bodySize = (context.watch<WorkoutInfo>().bodySize * 0.001).toInt();
     return Column(
       children: [
         Flexible(
@@ -38,9 +37,6 @@ class _SquatTabState extends State<SquatTab> {
           flex: 10,
           child: Stack(
             children: [
-              Center(
-                child: Text(bodySize.toString(),style: MyTextStyles.h1_w,),
-              ),
               Container(
                 decoration: MyCardStyles.outLinedColorBoxNoRadius(MyColors.lightGrey.withOpacity(0)),
                 child: Align(

@@ -21,7 +21,14 @@ class _PauseTabState extends State<PauseTab> {
           child: Container(
             color: MyColors.black.withOpacity(0.5),
             child: Center(
-              child: Text('정지',style: MyTextStyles.h1_w,),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.pause_circle_rounded,size: 256,color: MyColors.white,),
+                  Text('정지',style: MyTextStyles.game_ui_h1,),
+                ],
+              ),
             ),
           ),
         ),

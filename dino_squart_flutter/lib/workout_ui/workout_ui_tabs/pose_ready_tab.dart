@@ -18,8 +18,11 @@ class _ReadyTabState extends State<ReadyTab> {
   Widget build(BuildContext context) {
     int readyTime = ((4000-context.watch<WorkoutInfo>().readyTime) *0.001 ).toInt();
     //TODO 길이도 상태 조건에 포함시키기
-    if (context.watch<WorkoutInfo>().bodySize < 200000){
-      displayText = "전신이 보이게 서주세요";
+    if (context.watch<WorkoutInfo>().bodySize < 170000 && context.watch<WorkoutInfo>().bodySize >= 100000){
+      displayText = "좋아요 유지!";
+    }
+    else if (context.watch<WorkoutInfo>().bodySize < 100000){
+      displayText = "전신이 보이게\n서주세요!";
     }
     else{
       displayText = "너무 가까워요";
@@ -34,12 +37,12 @@ class _ReadyTabState extends State<ReadyTab> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(displayText,style: MyTextStyles.h1_w,),
+                  Text(displayText,style: MyTextStyles.game_ui_h2,),
 
                   readyTime <= 3?
-                  Text(readyTime.toString(),style: MyTextStyles.h1_w,)
+                  Text(readyTime.toString(),style: MyTextStyles.game_ui_h1,)
                   :
-                  Text('',style: MyTextStyles.h1_w,),
+                  Text('',style: MyTextStyles.game_ui_h1,),
                 ],
               ),
             ),

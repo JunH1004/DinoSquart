@@ -37,6 +37,28 @@ class MyTextStyles{
   static TextStyle h2_w = TextStyle(color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.bold);
   static TextStyle h3_w = TextStyle(color: Colors.white,fontSize: 24.sp,fontWeight: FontWeight.normal);
   static TextStyle h4_w = TextStyle(color: Colors.white,fontSize: 16.sp,fontWeight: FontWeight.normal);
+
+  static TextStyle game_ui_h1 = TextStyle(color: Colors.white,fontSize: 128.sp,fontWeight: FontWeight.bold);
+  static TextStyle game_ui_h2 = TextStyle(color: Colors.white,fontSize: 96.sp,fontWeight: FontWeight.bold);
+  static TextStyle game_ui_good = TextStyle(color: Colors.blue,fontSize: 96.sp,fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow( // bottomLeft
+            offset: Offset(-5, -5),
+            color: Colors.white
+        ),
+        Shadow( // bottomRight
+            offset: Offset(5, -5),
+            color: Colors.white
+        ),
+        Shadow( // topRight
+            offset: Offset(5, 5),
+            color: Colors.white
+        ),
+        Shadow( // topLeft
+            offset: Offset(-5, 5),
+            color: Colors.white
+        ),
+      ]);
   static TextStyle g1_outline_color(Color fontColor){
     return TextStyle(
       fontSize: 64.sp,

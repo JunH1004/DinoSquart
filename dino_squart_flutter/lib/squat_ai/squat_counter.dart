@@ -91,7 +91,7 @@ class SquatCounter extends ChangeNotifier
       double ps = getPoseSize();
       getPoseHeight();
       //print(ps);
-      if (200000 > ps && ps > 100000){
+      if (170000 > ps && ps > 100000){
         startStandTimer();
       }
       else{
@@ -143,10 +143,12 @@ class SquatCounter extends ChangeNotifier
   whenUp()
   {
     context.read<WorkoutInfo>().addSquartCount();
-    print(context.read<WorkoutInfo>().squatCount);  
+    print(context.read<WorkoutInfo>().squatCount);
+
   }
   whenDown()
   {
+    context.read<WorkoutInfo>().resetMinSquatLevel();
   }
 
 

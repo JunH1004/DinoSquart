@@ -57,7 +57,14 @@ class MainGame extends FlameGame with HasCollisionDetection{
     int squatCnt = context.read<WorkoutInfo>().squatCount;
     if (lastSquatCnt != squatCnt){
       lastSquatCnt = squatCnt;
-      player.jump();
+
+      //점프가 스쿼트에 가동범위에 따라 강해짐
+      double booster = 1;
+      context.read<WorkoutInfo>().minSquatLevel;
+      if (context.read<WorkoutInfo>().minSquatLevel <= 0.25){
+        booster = 1.3;
+      }
+      player.jump(booster);
     }
   }
 

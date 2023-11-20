@@ -17,7 +17,7 @@ import '../utility/ui_utils.dart';
 import '../vision_detector_views/detector_views.dart';
 import 'package:flutter/src/material/progress_indicator.dart';
 enum WorkoutPageState {Ready,Workout,Pause,Report}
-
+SquatTab squatTab = SquatTab();
 class WorkoutPageStateStore extends ChangeNotifier{
   WorkoutPageState state = WorkoutPageState.Ready;
   setPageState(WorkoutPageState s) {
@@ -30,13 +30,21 @@ class WorkoutPageStateStore extends ChangeNotifier{
 }
 class WorkoutInfo extends ChangeNotifier{
     double squatLevel = 1.0; //0.0 ~ 1.0 1이 일어난거
-    final double minSquatLevel = 0;
+    double minSquatLevel = 1;
     final double goodTopLine = 0.75;
     final double goodBottomLine = 0.10;
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
+    bool isJump = false;
+    void setIsJump(bool b){
+      isJump = b;
+      notifyListeners();
+    }
 
-
+    void resetMinSquatLevel(){
+      minSquatLevel = 1;
+      notifyListeners();
+    }
     double bodySize = 0;
     double bodyHeight = 0;
     setBodyHeight(double d ){
@@ -60,11 +68,16 @@ class WorkoutInfo extends ChangeNotifier{
     //TODO GETTER SETTER 만들기
     addSquartCount(){
       squatCount += 1; //스쿼트 하면 초기화
+      isJump = true;
       notifyListeners();
+
     }
 
     setSquatLevel(double d){
       squatLevel = d;
+      if(minSquatLevel > squatLevel){
+        minSquatLevel = squatLevel;
+      }
       notifyListeners();
     }
 }
@@ -88,7 +101,9 @@ class _WorkoutPageState extends State<WorkoutPage>
     super.initState();
     context.read<WorkoutPageStateStore>().init();
     context.read<WorkoutInfo>().squatCount = 0;
+
   }
+
   @override
   Widget build(BuildContext context) 
   {
@@ -116,7 +131,7 @@ class _WorkoutPageState extends State<WorkoutPage>
             ),
             [ // 탭 리스트
               ReadyTab(),
-              SquatTab(),
+              squatTab,
               PauseTab(),
               ReportTab(),
             ][context.watch<WorkoutPageStateStore>().state.index],
