@@ -42,9 +42,6 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   }
   @override
   void update(double dt) {
-    if(gameRef.player.isGround == false){
-      return;
-    }
     timer += dt;
     //print("Timer: $timer"); // Add some text to the print statement for clarity
 
@@ -54,6 +51,9 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
       print("game clear");
     }
     if (timer > 4-goalCal) { // 3 2 1
+      if(gameRef.player.isGround == false){
+        return;
+      }
       spawnEnemy();
     }
   }
@@ -80,13 +80,15 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
       add(enemy3);
 
     }
+    print(_enemies_pattern[0]);
     _enemies_pattern.removeAt(0);
     timer = 0;
     _enemies_pattern.add(addPattern());
   }
   int addPattern() {
     int rest = Random().nextInt(100);
-    if (rest > 80) {
+    print('rest $rest');
+    if (rest < 80) {
       //80퍼 확률로 장애물
       return Random().nextInt(2) + 1;
     }

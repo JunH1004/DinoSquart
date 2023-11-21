@@ -16,12 +16,11 @@ class Enemy extends PositionComponent
     with HasGameRef<MainGame>, CollisionCallbacks, DragCallbacks {
 
   late final EnemyComponent _enemyComponent;
-  double moveSpeed = 5.w;
+  double moveSpeed = 3;
   var initPos;
   Enemy(this.initPos) : super(
     size: Vector2.all(enemySize),
     priority: 9,
-    anchor: Anchor.bottomLeft,
   ){
     var TreeImage1 = Flame.images.fromCache("Tree_up.png");
     var TreeImage2 = Flame.images.fromCache("Tree_down.png");
@@ -42,7 +41,7 @@ class Enemy extends PositionComponent
   Future<void> onLoad() async {
     super.onLoad();
     //paint.color = Colors.yellow;
-    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 120.h);
+    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 80.h);
     add(RectangleHitbox());
 
   }
@@ -59,7 +58,7 @@ class Enemy extends PositionComponent
 
 class EnemyComponent extends SpriteAnimationComponent {
   EnemyComponent(SpriteAnimation playerAnimationMap)
-      : super(size: Vector2(3,4) * enemySize, animation: playerAnimationMap);
+      : super(size: Vector2(3,4) * enemySize, animation: playerAnimationMap,anchor: Anchor.bottomLeft);
   @override
   void update(double dt){
     super.update(dt);

@@ -18,7 +18,7 @@ class Player extends PositionComponent
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
   final double jumpForce = 15;
-  double groundYPos = 30.h;
+  double groundYPos = 80.h;
   bool isGround = true;
 
 
@@ -69,7 +69,7 @@ class Player extends PositionComponent
   @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
-    jump(1);
+    jump(1.3);
   }
 
   void jump(double booster){
