@@ -21,11 +21,13 @@ SquatTab squatTab = SquatTab();
 class WorkoutPageStateStore extends ChangeNotifier{
   WorkoutPageState state = WorkoutPageState.Ready;
   setPageState(WorkoutPageState s) {
-    state = s;
+    // state = s;
+    state = WorkoutPageState.Workout;
     notifyListeners();
   }
   init(){
-    state = WorkoutPageState.Ready;
+    // state = WorkoutPageState.Ready;
+    state = WorkoutPageState.Workout;
   }
 }
 class WorkoutInfo extends ChangeNotifier{

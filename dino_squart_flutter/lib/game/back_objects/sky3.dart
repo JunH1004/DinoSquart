@@ -34,7 +34,7 @@ class Sky3 extends SpriteComponent
   @override
   void update(double dt) {
     super.update(dt);
-    position.x = position.x - moveSpeed;
+    position.x = position.x - moveSpeed * gameRef.enemyManager.getGameSpeed();
     if (position.x < -2560.w * 0.5) {
       position.x = 0;
     }

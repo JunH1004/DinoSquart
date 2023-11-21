@@ -23,7 +23,6 @@ class Enemy extends PositionComponent
     priority: 9,
     anchor: Anchor.bottomLeft,
   ){
-    var TreeImage = Flame.images.fromCache("Tree.png");
     var TreeImage1 = Flame.images.fromCache("Tree_up.png");
     var TreeImage2 = Flame.images.fromCache("Tree_down.png");
 
@@ -43,7 +42,7 @@ class Enemy extends PositionComponent
   Future<void> onLoad() async {
     super.onLoad();
     //paint.color = Colors.yellow;
-    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 160.h);
+    position = Vector2(gameRef.size.x + initPos, gameRef.size.y - 120.h);
     add(RectangleHitbox());
 
   }
@@ -51,18 +50,7 @@ class Enemy extends PositionComponent
   @override
   void update(double dt) {
     super.update(dt);
-    if (position.x > gameRef.size.x * 1) {
-      // 화면 밖에 있을 경우
-      position.x = position.x - moveSpeed;
-    }
-    else if (position.x > gameRef.size.x * -0.1 && position.x < gameRef.size.x * 1) {
-      // 화면 안에 있을 경우
-      // 배속 가능
-      position.x = position.x - gameRef.enemyManager.getEnemySpeed();
-    }
-    else {
-      position.x = position.x - moveSpeed;
-    }
+    position.x = position.x - moveSpeed * gameRef.enemyManager.getGameSpeed();
     if (position.x < gameRef.size.x * -0.5){
       removeFromParent();
     }
@@ -71,7 +59,7 @@ class Enemy extends PositionComponent
 
 class EnemyComponent extends SpriteAnimationComponent {
   EnemyComponent(SpriteAnimation playerAnimationMap)
-      : super(size: Vector2(3.w,4.h) * enemySize, animation: playerAnimationMap);
+      : super(size: Vector2(3,4) * enemySize, animation: playerAnimationMap);
   @override
   void update(double dt){
     super.update(dt);

@@ -18,8 +18,8 @@ class Player extends PositionComponent
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
   final double jumpForce = 15;
-  double groundYPos = 30;
-  bool isGround = false;
+  double groundYPos = 30.h;
+  bool isGround = true;
 
 
   Player({
@@ -79,8 +79,9 @@ class Player extends PositionComponent
     print("jump");
     _velocity.y = -jumpForce * booster;
     position += _velocity;
-    gameRef.enemyManager.setEnemySpeed(18);
+    gameRef.enemyManager.setGameSpeed(3);
     _playerComponent.current = PlayerState.jump;
+    isGround = false;
   }
 
   void whenDamaged() {
@@ -93,9 +94,10 @@ class Player extends PositionComponent
       position += _velocity;
     }
     else{
-      gameRef.enemyManager.setInitEnemySpeed();
+      gameRef.enemyManager.setInitGameSpeed();
       position.y = gameRef.size.y - groundYPos;
       _playerComponent.current = PlayerState.run;
+      isGround = true;
     }
   }
 
