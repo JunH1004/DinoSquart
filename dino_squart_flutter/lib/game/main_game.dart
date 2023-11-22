@@ -69,6 +69,8 @@ class MainGame extends FlameGame with HasCollisionDetection{
 
     score = timer * 5;
     context.read<WorkoutInfo>().setScroe(score);
+    context.read<WorkoutInfo>().workout_time = timer;
+    context.read<WorkoutInfo>().workout_cal = timer * (0.14 +(enemyManager.goalCal * 0.3) );
     int squatCnt = context.read<WorkoutInfo>().squatCount;
     if (lastSquatCnt != squatCnt){
       lastSquatCnt = squatCnt;

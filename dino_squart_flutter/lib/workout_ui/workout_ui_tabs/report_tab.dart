@@ -1,4 +1,5 @@
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/ui/homepage.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/report_best_score_card.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/report_calorie_chart.dart';
@@ -51,7 +52,6 @@ class ReportTab extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ReportCalorieChartCard(),
                             ReportBestScoreCard(),
                           ],
                         ),
@@ -76,7 +76,16 @@ class ReportTab extends StatelessWidget {
                 Container(height: 32.h,),
                 GestureDetector(
                     onTap: (){
-
+                      double workout_time = context.read<WorkoutInfo>().workout_time;
+                      double workout_cal = context.read<WorkoutInfo>().workout_cal;
+                      int avoid = context.read<WorkoutInfo>().avoid_obs;
+                      double score = context.read<WorkoutInfo>().score;
+                      context.read<HompageDataStore>().addTotalBurnCalorie(workout_time.toInt());
+                      context.read<HompageDataStore>().addTotalBurnCalorie(workout_cal.toInt());
+                      context.read<HompageDataStore>().addTotalAvoidedObstacle(avoid);
+                      context.read<HompageDataStore>().updateBestScore(score.toInt());
+                      context.read<HompageDataStore>().addWeeklyBurnCalories(score);
+                      Navigator.pop(context);
                     },
                     child: Container(
                       decoration: MyCardStyles.outLinedBtnStyle,

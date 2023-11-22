@@ -89,11 +89,9 @@ class Player extends PositionComponent
 
   void whenDamaged() {
     print("damaged!");
-    if(gameRef.enemyManager.isLimitedGame){
       gameRef.enemyManager.setGameSpeed(0);
       gameRef.context.read<WorkoutInfo>().isGameOver = true;
       gameRef.context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Report);
-    }
   }
 
   void gravitySystem(){

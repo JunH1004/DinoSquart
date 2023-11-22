@@ -39,7 +39,9 @@ class WorkoutInfo extends ChangeNotifier{
     final double goodBottomLine = 0.10;
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
-
+    double workout_time = 0;
+    double workout_cal = 0;
+    int avoid_obs = 0;
     bool isGameOver = false;
     double score = 0;
     void setScroe(double d){
@@ -123,7 +125,12 @@ class _WorkoutPageState extends State<WorkoutPage>
     context.read<WorkoutInfo>().squatCount = 0;
     mainGame = MainGame(context);
   }
-
+  @override
+  void dispose() {
+    squatCounter.stopStandTimer();
+    squatCounter.stopTotalTimer();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) 
   {

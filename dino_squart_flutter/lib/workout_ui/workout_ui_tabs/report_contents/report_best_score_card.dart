@@ -1,5 +1,6 @@
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class ReportBestScoreCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('1234',style: MyTextStyles.h1),
+                      Text(context.read<WorkoutInfo>().score.toInt().toString(),style: MyTextStyles.h1),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('m',style: MyTextStyles.h3))

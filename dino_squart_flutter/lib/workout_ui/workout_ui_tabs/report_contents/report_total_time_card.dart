@@ -1,9 +1,12 @@
 import 'package:dino_squart_flutter/main_style.dart';
 import 'package:dino_squart_flutter/ui/homepage.dart';
+import 'package:dino_squart_flutter/utility/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import '../../workout_page.dart';
 
 class ReportTotalTimeCard extends StatelessWidget {
   const ReportTotalTimeCard({super.key});
@@ -28,7 +31,7 @@ class ReportTotalTimeCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('2:30',style: MyTextStyles.h1),
+                      Text(convertToTimeString(context.read<WorkoutInfo>().workout_time.toInt()),style: MyTextStyles.h1),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('',style: MyTextStyles.h3))

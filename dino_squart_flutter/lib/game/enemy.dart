@@ -1,6 +1,7 @@
 import 'package:dino_squart_flutter/game/main_game.dart';
 import 'package:dino_squart_flutter/game/manager/enemy_manager.dart';
 import 'package:dino_squart_flutter/game/player.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -8,6 +9,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 import 'manager/game_manager.dart';
 
@@ -51,6 +53,7 @@ class Enemy extends PositionComponent
     super.update(dt);
     position.x = position.x - moveSpeed * gameRef.enemyManager.getGameSpeed();
     if (position.x < gameRef.size.x * -0.5){
+      gameRef.context.read<WorkoutInfo>().avoid_obs += 1;
       removeFromParent();
     }
   }

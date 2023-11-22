@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'homepage_content/best_score_card.dart';
 
 class HompageDataStore extends ChangeNotifier{
@@ -27,14 +28,89 @@ class HompageDataStore extends ChangeNotifier{
     _workoutTime = 0;
     _workoutDifficulty = 0;
   }
-  void initTestValue(){
-    //테스트용 값
-    // TODO 실제 데이터 저장 및 불러오기
-    _bestScore = 1004;
-    _totalWorkoutTime = 218;
-    _totalBurnCalorie = 1234;
-    _totalAvoidedObstacle = 64;
-    weeklyBrunCalories = [1,2,3,5,2,5,7];
+  Future<void> initTestValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Fetch values from SharedPreferences, or use default values if not found
+    _bestScore = prefs.getInt('bestScore') ?? 0;
+    _totalWorkoutTime = prefs.getInt('totalWorkoutTime') ?? 0;
+    _totalBurnCalorie = prefs.getInt('totalBurnCalorie') ?? 0;
+    _totalAvoidedObstacle = prefs.getInt('totalAvoidedObstacle') ?? 0;
+    weeklyBrunCalories = prefs.getStringList('weeklyBurnCalories')?.map((e) => double.parse(e))?.toList() ?? [0,0,0,0,0,0,0];
+
+    notifyListeners();
+  }
+
+  int get getBestScore => _bestScore;
+
+  int get getTotalWorkoutTime => _totalWorkoutTime;
+
+  int get getTotalBurnCalorie => _totalBurnCalorie;
+
+  int get getTotalAvoidedObstacle => _totalAvoidedObstacle;
+
+  List<double> get getWeeklyBrunCalories => weeklyBrunCalories;
+
+  void setTotalWorkoutTime(int value)  {
+    _totalWorkoutTime = value;
+    notifyListeners();
+     _saveToSharedPreferences('totalWorkoutTime', value);
+  }
+
+  void setTotalBurnCalorie(int value)  {
+    _totalBurnCalorie = value;
+    notifyListeners();
+     _saveToSharedPreferences('totalBurnCalorie', value);
+  }
+
+  void setTotalAvoidedObstacle(int value)  {
+    _totalAvoidedObstacle = value;
+    notifyListeners();
+     _saveToSharedPreferences('totalAvoidedObstacle', value);
+  }
+  void addTotalWorkoutTime(int value)  {
+    _totalWorkoutTime += value;
+    notifyListeners();
+    _saveToSharedPreferences('totalWorkoutTime', value);
+  }
+
+  void addTotalBurnCalorie(int value)  {
+    _totalBurnCalorie += value;
+    notifyListeners();
+    _saveToSharedPreferences('totalBurnCalorie', value);
+  }
+
+  void addTotalAvoidedObstacle(int value)  {
+    _totalAvoidedObstacle += value;
+    notifyListeners();
+    _saveToSharedPreferences('totalAvoidedObstacle', value);
+  }
+
+  void setWeeklyBrunCalories(List<double> values) {
+    weeklyBrunCalories = values;
+    notifyListeners();
+    _saveToSharedPreferences('weeklyBurnCalories', values.map((e) => e.toString()).toList());
+  }
+  void addWeeklyBurnCalories(double d){
+    weeklyBrunCalories.removeAt(0);
+    weeklyBrunCalories.add(d);
+    _saveToSharedPreferences('weeklyBurnCalories', weeklyBrunCalories.map((e) => e.toString()).toList());
+  }
+
+
+  // ... (existing code)
+
+  // Helper method to save values to SharedPreferences
+  Future<void> _saveToSharedPreferences(String key, dynamic value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (value is int) {
+      await prefs.setInt(key, value);
+    } else if (value is double) {
+      await prefs.setDouble(key, value);
+    } else if (value is String) {
+      await prefs.setString(key, value);
+    } else if (value is List<String>) {
+      await prefs.setStringList(key, value);
+    }
   }
 
   int getSumWeeklyCalorie(){
@@ -44,9 +120,7 @@ class HompageDataStore extends ChangeNotifier{
     }
     return sum;
   }
-  int getBestScore(){
-    return _bestScore;
-  }
+
   bool isNewBestScore(int n){
     if (_bestScore < n) return true;
 
@@ -55,29 +129,13 @@ class HompageDataStore extends ChangeNotifier{
   void updateBestScore(int n){
     if (isNewBestScore(n)){
       _bestScore = n;
+      _saveToSharedPreferences('bestScore', _bestScore);
       notifyListeners();
     }
   }
-  int get getTotalWorkoutTime => _totalWorkoutTime;
-  set setTotalWorkoutTime(int value) => (){
-    _totalWorkoutTime = value;
-    notifyListeners();
-  };
   String getTotalWorkoutTimeText(){
     return convertToTimeString(_totalWorkoutTime);
   }
-
-  int get getTotalBurnCalorie => _totalBurnCalorie;
-  set setTotalBurnCalorie(int value) => (){
-    _totalBurnCalorie = value;
-    notifyListeners();
-  };
-
-  int get getTotalAvoidedObstacle => _totalAvoidedObstacle;
-  set setTotalAvoidedObstacle(int value) => (){
-    _totalAvoidedObstacle = value;
-    notifyListeners();
-  };
 
   void setWorkoutDifficulty(int n){
     _workoutDifficulty = n;

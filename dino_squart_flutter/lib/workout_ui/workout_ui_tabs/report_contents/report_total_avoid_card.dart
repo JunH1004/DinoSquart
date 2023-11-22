@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../workout_page.dart';
+
 class ReportTotalAvoidCard extends StatelessWidget {
   const ReportTotalAvoidCard({super.key});
 
@@ -28,7 +30,7 @@ class ReportTotalAvoidCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('5',style: MyTextStyles.h1),
+                      Text(context.read<WorkoutInfo>().avoid_obs.toString(),style: MyTextStyles.h1),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('개',style: MyTextStyles.h3))

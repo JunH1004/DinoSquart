@@ -11,6 +11,8 @@ class CalorieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     data = context.watch<HompageDataStore>().weeklyBrunCalories;
+    double sum = data.reduce((double value, double element) => value + element);
+    print(data);
     return Flexible(
       flex: 3,
       child: Container(
@@ -41,9 +43,13 @@ class CalorieCard extends StatelessWidget {
             ),
 
             Expanded(
-                child: LineChart(
+                child: sum != 0?
+                LineChart(
                   _createRepsData(data),
-                )),
+                )
+                    :
+                Container(),
+            ),
           ],
         ),
       ),
