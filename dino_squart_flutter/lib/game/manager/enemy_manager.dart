@@ -2,10 +2,12 @@ import 'package:dino_squart_flutter/game/enemy.dart';
 import 'package:dino_squart_flutter/game/main_game.dart';
 import 'package:dino_squart_flutter/game/manager/game_manager.dart';
 import 'package:dino_squart_flutter/ui/homepage.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flame/components.dart';
 import 'dart:math';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 
@@ -28,6 +30,7 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
     else {
       isLimitedGame = true;
     }
+    print('isLimitedGame $isLimitedGame');
 
     if(goalCal == 0){
       enemySpawnTime = 3;
@@ -42,14 +45,10 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   }
   @override
   void update(double dt) {
-    timer += dt;
+    if (gameRef.context.read<WorkoutPageStateStore>().state == WorkoutPageState.Workout)
+      timer += dt;
     //print("Timer: $timer"); // Add some text to the print statement for clarity
-
     super.update(dt);
-    if (timer > goalTime && isLimitedGame){
-      //gameclear
-      print("game clear");
-    }
     if (timer > 4-goalCal) { // 3 2 1
       if(gameRef.player.isGround == false){
         return;

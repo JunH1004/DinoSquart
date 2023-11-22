@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dino_squart_flutter/game/main_game.dart';
+import 'package:dino_squart_flutter/workout_ui/game_ui.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pause_tab.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/pose_ready_tab.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_tab.dart';
@@ -21,13 +22,14 @@ SquatTab squatTab = SquatTab();
 class WorkoutPageStateStore extends ChangeNotifier{
   WorkoutPageState state = WorkoutPageState.Ready;
   setPageState(WorkoutPageState s) {
-    // state = s;
-    state = WorkoutPageState.Workout;
-    notifyListeners();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      state = s;
+      print(state.index);
+      notifyListeners();
+    });
   }
   init(){
-    // state = WorkoutPageState.Ready;
-    state = WorkoutPageState.Workout;
+    state = WorkoutPageState.Ready;
   }
 }
 class WorkoutInfo extends ChangeNotifier{
@@ -37,6 +39,21 @@ class WorkoutInfo extends ChangeNotifier{
     final double goodBottomLine = 0.10;
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
+
+    double score = 0;
+    void setScroe(double d){
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        score = d;
+        notifyListeners();
+      });
+    }
+    void addScroe(double d){
+        score += d;
+        if(score < 0){
+          score = 0;
+        notifyListeners();
+      }
+    }
     bool isJump = false;
     void setIsJump(bool b){
       isJump = b;
@@ -97,13 +114,13 @@ class WorkoutPage extends StatefulWidget
 class _WorkoutPageState extends State<WorkoutPage> 
 {
   late SquatCounter squatCounter = SquatCounter(context);
-  late MainGame mainGame = MainGame(context);
+  late MainGame mainGame;
   @override
   void initState(){
     super.initState();
     context.read<WorkoutPageStateStore>().init();
     context.read<WorkoutInfo>().squatCount = 0;
-
+    mainGame = MainGame(context);
   }
 
   @override
@@ -137,7 +154,21 @@ class _WorkoutPageState extends State<WorkoutPage>
               PauseTab(),
               ReportTab(),
             ][context.watch<WorkoutPageStateStore>().state.index],
-
+              GameUI(),
+            
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: FloatingActionButton.small(onPressed:(){
+                  confirmDiaglog(context,
+                      'Are you sure to finish workout?', () {
+                        Navigator.pop(context);
+                      });
+                },
+                  elevation: 0,
+                  backgroundColor: MyColors.white.withOpacity(1),child: Icon(Icons.arrow_back,color: MyColors.black,),),
+              ),
+            ),
             //game view on upper
           ],
         ),

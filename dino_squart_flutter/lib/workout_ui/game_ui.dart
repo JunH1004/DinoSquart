@@ -12,40 +12,30 @@ class GameUI extends StatefulWidget {
 }
 
 class _GameUIState extends State<GameUI> {
-  String displayText = "";
 
   @override
   Widget build(BuildContext context) {
-    int readyTime = ((4000-context.watch<WorkoutInfo>().readyTime) *0.001 ).toInt();
+    int score = (context.watch<WorkoutInfo>().score).toInt();
     //TODO 길이도 상태 조건에 포함시키기
-    if (context.watch<WorkoutInfo>().bodySize < 170000 && context.watch<WorkoutInfo>().bodySize >= 100000){
-      displayText = "좋아요 유지!";
-    }
-    else if (context.watch<WorkoutInfo>().bodySize < 100000){
-      displayText = "전신이 보이게\n서주세요!";
-    }
-    else{
-      displayText = "너무 가까워요";
-    }
     return Column(
       children: [
         Flexible(
           flex: 1,
           child: Container(
-            color: MyColors.black.withOpacity(0.5),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(displayText,style: MyTextStyles.game_ui_h2,),
-
-                  readyTime <= 3?
-                  Text(readyTime.toString(),style: MyTextStyles.game_ui_h1,)
-                      :
-                  Text('',style: MyTextStyles.game_ui_h1,),
+                  Text(score.toString(),style: MyTextStyles.game_ui_o2,),
+                  Text('\n',style: MyTextStyles.game_ui_o2,),
                 ],
               ),
             ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Container(
           ),
         ),
       ],

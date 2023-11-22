@@ -19,6 +19,8 @@ class MainGame extends FlameGame with HasCollisionDetection{
   late Sky3 sky3;
   late Ground ground;
   late Cloud cloud;
+  double score = 0;
+  double timer = 0;
   EnemyManager enemyManager = EnemyManager();
   GameManager gameManager = GameManager();
 
@@ -53,11 +55,23 @@ class MainGame extends FlameGame with HasCollisionDetection{
   }
 
   void update(double dt) {
+    if (context.read<WorkoutPageStateStore>().state != WorkoutPageState.Workout){
+      return;
+    }
     super.update(dt);
+    timer += dt * 100;
+    if (timer > enemyManager.goalTime && enemyManager.isLimitedGame){
+      //gameclear
+      print("game clear");
+      context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Report);
+    }
+
+    score = timer * 5;
+    context.read<WorkoutInfo>().setScroe(score);
     int squatCnt = context.read<WorkoutInfo>().squatCount;
     if (lastSquatCnt != squatCnt){
       lastSquatCnt = squatCnt;
-
+      
       //점프가 스쿼트에 가동범위에 따라 강해짐
       double booster = 1;
       context.read<WorkoutInfo>().minSquatLevel;

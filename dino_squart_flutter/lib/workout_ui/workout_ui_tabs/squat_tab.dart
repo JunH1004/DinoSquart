@@ -45,7 +45,7 @@ class _SquatTabState extends State<SquatTab> {
                     decoration: MyCardStyles.outLinedColorBox(MyColors.white.withOpacity(0.2)),
                     width: 50.w,
                     margin: EdgeInsets.fromLTRB(0, 32.h, 32.w, 32.h),
-                    padding: EdgeInsets.fromLTRB(0, 16.h, 0,16.h),
+                    padding: EdgeInsets.fromLTRB(0, 16.h, 0 ,16.h),
                     child: Stack(
                       children: [
                         Container(
@@ -54,7 +54,7 @@ class _SquatTabState extends State<SquatTab> {
                           child:  LayoutBuilder(
                             builder: (context, constraints) {
                               return Padding(
-                                padding: EdgeInsets.only(top: constraints.biggest.height * (1.0 - goodTopLine), bottom: constraints.biggest.height * goodBottomLine),
+                                padding: EdgeInsets.only(top: (constraints.biggest.height * (1.0 - goodTopLine)).h, bottom: (constraints.biggest.height * goodBottomLine).h),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(32),

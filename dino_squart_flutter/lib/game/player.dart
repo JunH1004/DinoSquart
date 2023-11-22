@@ -1,11 +1,13 @@
 import 'package:dino_squart_flutter/game/enemy.dart';
 import 'package:dino_squart_flutter/game/main_game.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 enum PlayerState { run, jump}
 double playerSize = 200.0.w ;
 class Player extends PositionComponent
@@ -86,6 +88,10 @@ class Player extends PositionComponent
 
   void whenDamaged() {
     print("damaged!");
+    if(gameRef.enemyManager.isLimitedGame){
+      print("-10");
+      gameRef.context.read<WorkoutInfo>().addScroe(-10);
+    }
   }
 
   void gravitySystem(){

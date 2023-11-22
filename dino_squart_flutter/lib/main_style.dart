@@ -40,7 +40,7 @@ class MyTextStyles{
 
   static TextStyle game_ui_h1 = TextStyle(color: Colors.white,fontSize: 128.sp,fontWeight: FontWeight.bold);
   static TextStyle game_ui_h2 = TextStyle(color: Colors.white,fontSize: 96.sp,fontWeight: FontWeight.bold);
-  static TextStyle game_ui_good = TextStyle(color: Colors.blue,fontSize: 96.sp,fontWeight: FontWeight.bold,
+  static TextStyle game_ui_o1 = TextStyle(color: Colors.black,fontSize: 128.sp,fontWeight: FontWeight.bold,
       shadows: [
         Shadow( // bottomLeft
             offset: Offset(-5, -5),
@@ -55,7 +55,26 @@ class MyTextStyles{
             color: Colors.white
         ),
         Shadow( // topLeft
-            offset: Offset(-5, 5),
+            offset: Offset(-1, 1),
+            color: Colors.white
+        ),
+      ]);
+  static TextStyle game_ui_o2 = TextStyle(color: Colors.black,fontSize: 96.sp,fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow( // bottomLeft
+            offset: Offset(-2, -2),
+            color: Colors.white
+        ),
+        Shadow( // bottomRight
+            offset: Offset(2, -2),
+            color: Colors.white
+        ),
+        Shadow( // topRight
+            offset: Offset(2, 2),
+            color: Colors.white
+        ),
+        Shadow( // topLeft
+            offset: Offset(-2, 2),
             color: Colors.white
         ),
       ]);
