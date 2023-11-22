@@ -40,6 +40,7 @@ class WorkoutInfo extends ChangeNotifier{
     final double perfectTopLine = 0.60;
     final double perfectBottomLine = 0.25;
 
+    bool isGameOver = false;
     double score = 0;
     void setScroe(double d){
       WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -135,10 +136,9 @@ class _WorkoutPageState extends State<WorkoutPage>
       child: Material(
         child: Stack(
           children: [
-
             PoseDetectorView(squatCounter),
             Visibility(
-              visible: state == WorkoutPageState.Workout,
+              visible: state == WorkoutPageState.Workout || state == WorkoutPageState.Report,
               child: Positioned(
                 top: 0,  // 이 부분을 조절하여 GameWidget의 상단 위치를 조정할 수 있습니다.
                 child: SizedBox(

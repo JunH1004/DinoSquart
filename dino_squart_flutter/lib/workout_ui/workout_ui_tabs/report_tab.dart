@@ -1,4 +1,5 @@
 import 'package:dino_squart_flutter/main_style.dart';
+import 'package:dino_squart_flutter/workout_ui/workout_page.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/report_best_score_card.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/report_calorie_chart.dart';
 import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/report_total_avoid_card.dart';
@@ -7,6 +8,7 @@ import 'package:dino_squart_flutter/workout_ui/workout_ui_tabs/report_contents/r
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:stroke_text/stroke_text.dart';
 
 class ReportTab extends StatelessWidget {
@@ -22,8 +24,8 @@ class ReportTab extends StatelessWidget {
               color: MyColors.black.withOpacity(0.5),
               child: Center(
                 child: StrokeText(
-                  text: 'Game Over',
-                  textStyle: MyTextStyles.g1_outline_color(MyColors.RED),
+                  text: context.read<WorkoutInfo>().isGameOver? 'Game Over' : 'Game Clear',
+                  textStyle: context.read<WorkoutInfo>().isGameOver? MyTextStyles.g1_outline_color(MyColors.RED) : MyTextStyles.g1_outline_color(MyColors.GREEN) ,
                   strokeColor: Colors.white,
                   strokeWidth: 100,
                 )

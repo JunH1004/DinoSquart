@@ -59,10 +59,11 @@ class MainGame extends FlameGame with HasCollisionDetection{
       return;
     }
     super.update(dt);
-    timer += dt * 100;
+    timer += dt;
     if (timer > enemyManager.goalTime && enemyManager.isLimitedGame){
       //gameclear
       print("game clear");
+      enemyManager.setGameSpeed(0);
       context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Report);
     }
 

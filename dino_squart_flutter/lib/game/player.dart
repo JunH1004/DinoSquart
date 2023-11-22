@@ -19,7 +19,7 @@ class Player extends PositionComponent
   //물리엔진
   Vector2 _velocity = Vector2.zero();
   final double _gravity = 1;
-  final double jumpForce = 15;
+  final double jumpForce = 20;
   double groundYPos = 80.h;
   bool isGround = true;
 
@@ -75,13 +75,14 @@ class Player extends PositionComponent
   }
 
   void jump(double booster){
+    gameRef.enemyManager.timer = 0;
     if (_playerComponent.current == PlayerState.jump){
       return;
     }
     print("jump");
     _velocity.y = -jumpForce * booster;
     position += _velocity;
-    gameRef.enemyManager.setGameSpeed(3);
+    gameRef.enemyManager.setGameSpeed(4);
     _playerComponent.current = PlayerState.jump;
     isGround = false;
   }
@@ -89,8 +90,9 @@ class Player extends PositionComponent
   void whenDamaged() {
     print("damaged!");
     if(gameRef.enemyManager.isLimitedGame){
-      print("-10");
-      gameRef.context.read<WorkoutInfo>().addScroe(-10);
+      gameRef.enemyManager.setGameSpeed(0);
+      gameRef.context.read<WorkoutInfo>().isGameOver = true;
+      gameRef.context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Report);
     }
   }
 

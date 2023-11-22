@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 
 
 class EnemyManager extends Component with HasGameRef<MainGame>{
-  final double _initGameSpeed = 1;
-  double _gameSpeed = 1;
-  List<int> _enemies_pattern = [1,2,3];
+  double _initGameSpeed = 1.2;
+  double _gameSpeed = 1.2;
+  List<int> _enemies_pattern = [1,0,0];
   double timer = 0;
   bool isLimitedGame = false;
   int goalTime = 0;
@@ -33,26 +33,26 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
     print('isLimitedGame $isLimitedGame');
 
     if(goalCal == 0){
-      enemySpawnTime = 3;
+      enemySpawnTime = 4;
     }
     else if(goalCal == 1){
-      enemySpawnTime = 2.5;
+      enemySpawnTime = 3.5;
     }
     else{ //goalCal == 2
-      enemySpawnTime = 2;
+      enemySpawnTime = 3;
     }
 
   }
   @override
   void update(double dt) {
+    if(gameRef.player.isGround == false){
+      return;
+    }
     if (gameRef.context.read<WorkoutPageStateStore>().state == WorkoutPageState.Workout)
       timer += dt;
     //print("Timer: $timer"); // Add some text to the print statement for clarity
     super.update(dt);
-    if (timer > 4-goalCal) { // 3 2 1
-      if(gameRef.player.isGround == false){
-        return;
-      }
+    if (timer > enemySpawnTime) { // 3 2 1
       spawnEnemy();
     }
   }
