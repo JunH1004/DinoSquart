@@ -267,20 +267,6 @@ class MainContentBox extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("게임 시작!",style: MyTextStyles.h1_w,),
-                        RichText(text: TextSpan(
-                          text: context.watch<HompageDataStore>().getWorkoutTime() == 0?
-                          '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalPerHour()}'
-                              :
-                          '목표 : ${context.watch<HompageDataStore>().getWorkoutTimeText()}, ${context.watch<HompageDataStore>().getCalByWorkoutTime()}'
-                            ,
-                          style: MyTextStyles.h3_w,
-                          children: <TextSpan>[
-                            context.watch<HompageDataStore>().getWorkoutTime() == 0?
-                            TextSpan(text: 'kcal/h',style: MyTextStyles.h4_w)
-                                :
-                            TextSpan(text: 'kcal',style: MyTextStyles.h4_w)
-                          ]
-                        ))
                       ]
                     ),
                 ),
