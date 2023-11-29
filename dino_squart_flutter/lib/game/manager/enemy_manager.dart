@@ -87,7 +87,7 @@ class EnemyManager extends Component with HasGameRef<MainGame>{
   int addPattern() {
     int rest = Random().nextInt(100);
     print('rest $rest');
-    if (rest < 80) {
+    if (rest < 1000) {
       //80퍼 확률로 장애물
       return Random().nextInt(2) + 1;
     }

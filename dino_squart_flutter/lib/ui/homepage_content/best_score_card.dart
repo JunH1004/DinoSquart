@@ -28,7 +28,7 @@ class BestScoreCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(context.read<HompageDataStore>().getBestScore.toString(),style: MyTextStyles.h2),
+                      Text(context.watch<HompageDataStore>().getBestScore.toString(),style: MyTextStyles.h2),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 4.h),
                           child: Text('m',style: MyTextStyles.h3))

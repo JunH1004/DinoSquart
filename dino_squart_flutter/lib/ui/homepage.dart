@@ -127,7 +127,7 @@ class HompageDataStore extends ChangeNotifier{
     return false;
   }
   void updateBestScore(int n){
-    if (isNewBestScore(n)){
+    if (_bestScore < n){
       _bestScore = n;
       _saveToSharedPreferences('bestScore', _bestScore);
       notifyListeners();
