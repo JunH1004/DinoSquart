@@ -109,7 +109,7 @@ class SquatCounter extends ChangeNotifier
 
     if (context.read<WorkoutPageStateStore>().state == WorkoutPageState.Pause){
       //정지 중 재개
-      if (context.read<WorkoutInfo>().bodySize > 150000){
+      if (context.read<WorkoutInfo>().bodySize < 260000 && context.read<WorkoutInfo>().bodySize > 150000){
         context.read<WorkoutPageStateStore>().setPageState(WorkoutPageState.Workout);
       }
     }
