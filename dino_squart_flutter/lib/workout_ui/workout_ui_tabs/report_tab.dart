@@ -80,7 +80,7 @@ class ReportTab extends StatelessWidget {
                       double workout_cal = context.read<WorkoutInfo>().workout_cal;
                       int avoid = context.read<WorkoutInfo>().avoid_obs;
                       double score = context.read<WorkoutInfo>().score;
-                      context.read<HompageDataStore>().addTotalBurnCalorie(workout_time.toInt());
+                      context.read<HompageDataStore>().addTotalWorkoutTime(workout_time.toInt());
                       context.read<HompageDataStore>().addTotalBurnCalorie(workout_cal.toInt());
                       context.read<HompageDataStore>().addTotalAvoidedObstacle(avoid);
                       context.read<HompageDataStore>().updateBestScore(score.toInt());
